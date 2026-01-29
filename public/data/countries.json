@@ -1,0 +1,107 @@
+[
+  {
+    "code": "US",
+    "name": "United States",
+    "currency": "USD",
+    "region": "North America",
+    "capital": "New York"
+  },
+  {
+    "code": "IN",
+    "name": "India",
+    "currency": "INR",
+    "region": "Asia",
+    "capital": "Mumbai"
+  },
+  {
+    "code": "SG",
+    "name": "Singapore",
+    "currency": "SGD",
+    "region": "Asia",
+    "capital": "Singapore"
+  },
+  {
+    "code": "CH",
+    "name": "Switzerland",
+    "currency": "CHF",
+    "region": "Europe",
+    "capital": "Zurich"
+  },
+  {
+    "code": "NL",
+    "name": "Netherlands",
+    "currency": "EUR",
+    "region": "Europe",
+    "capital": "Amsterdam"
+  },
+  {
+    "code": "GB",
+    "name": "United Kingdom",
+    "currency": "GBP",
+    "region": "Europe",
+    "capital": "London"
+  },
+  {
+    "code": "CA",
+    "name": "Canada",
+    "currency": "CAD",
+    "region": "North America",
+    "capital": "Toronto"
+  },
+  {
+    "code": "AE",
+    "name": "United Arab Emirates",
+    "currency": "AED",
+    "region": "Middle East",
+    "capital": "Dubai"
+  },
+  {
+    "code": "NO",
+    "name": "Norway",
+    "currency": "NOK",
+    "region": "Europe",
+    "capital": "Oslo"
+  },
+  {
+    "code": "IE",
+    "name": "Ireland",
+    "currency": "EUR",
+    "region": "Europe",
+    "capital": "Dublin"
+  },
+  {
+    "code": "LU",
+    "name": "Luxembourg",
+    "currency": "EUR",
+    "region": "Europe",
+    "capital": "Luxembourg"
+  },
+  {
+    "code": "AU",
+    "name": "Australia",
+    "currency": "AUD",
+    "region": "Oceania",
+    "capital": "Sydney"
+  },
+  {
+    "code": "QA",
+    "name": "Qatar",
+    "currency": "QAR",
+    "region": "Middle East",
+    "capital": "Doha"
+  },
+  {
+    "code": "BN",
+    "name": "Brunei Darussalam",
+    "currency": "BND",
+    "region": "Asia",
+    "capital": "Bandar Seri Begawan"
+  },
+  {
+    "code": "MO",
+    "name": "Macao SAR",
+    "currency": "MOP",
+    "region": "Asia",
+    "capital": "Macau"
+  }
+]

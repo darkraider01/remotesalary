@@ -1,0 +1,62 @@
+{
+  "US": {
+    "effectiveRate": 0.28,
+    "description": "Income tax + SS"
+  },
+  "IN": {
+    "effectiveRate": 0.29,
+    "description": "Income tax + SS"
+  },
+  "SG": {
+    "effectiveRate": 0.25,
+    "description": "Income tax + CPF"
+  },
+  "CH": {
+    "effectiveRate": 0.28,
+    "description": "Income tax + SS"
+  },
+  "NL": {
+    "effectiveRate": 0.37,
+    "description": "Income tax + SS"
+  },
+  "GB": {
+    "effectiveRate": 0.28,
+    "description": "Income tax + SS"
+  },
+  "CA": {
+    "effectiveRate": 0.29,
+    "description": "Income tax + CPP + EI"
+  },
+  "AE": {
+    "effectiveRate": 0,
+    "description": "No personal income tax"
+  },
+  "NO": {
+    "effectiveRate": 0.28,
+    "description": "Income tax + SS"
+  },
+  "IE": {
+    "effectiveRate": 0.31,
+    "description": "Income tax + USC + PRSI"
+  },
+  "LU": {
+    "effectiveRate": 0.27,
+    "description": "Income tax + SS"
+  },
+  "AU": {
+    "effectiveRate": 0.23,
+    "description": "Income tax + Medicare Levy"
+  },
+  "QA": {
+    "effectiveRate": 0,
+    "description": "Income tax + SS"
+  },
+  "BN": {
+    "effectiveRate": 0.085,
+    "description": "Income tax + SS"
+  },
+  "MO": {
+    "effectiveRate": 0.12,
+    "description": "Professional Tax"
+  }
+}

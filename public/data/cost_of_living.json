@@ -1,0 +1,62 @@
+{
+  "US": {
+    "index": 135,
+    "description": "Moderate cost"
+  },
+  "IN": {
+    "index": 135,
+    "description": "Moderate cost"
+  },
+  "SG": {
+    "index": 146,
+    "description": "High cost"
+  },
+  "CH": {
+    "index": 288,
+    "description": "Very high cost"
+  },
+  "NL": {
+    "index": 135,
+    "description": "Moderate cost"
+  },
+  "GB": {
+    "index": 135,
+    "description": "Moderate cost"
+  },
+  "CA": {
+    "index": 175,
+    "description": "Moderate non-rent expenses for single"
+  },
+  "AE": {
+    "index": 135,
+    "description": "Moderate cost"
+  },
+  "NO": {
+    "index": 135,
+    "description": "Moderate cost"
+  },
+  "IE": {
+    "index": 135,
+    "description": "Moderate cost"
+  },
+  "LU": {
+    "index": 150,
+    "description": "Moderate cost"
+  },
+  "AU": {
+    "index": 135,
+    "description": "Moderate cost"
+  },
+  "QA": {
+    "index": 135,
+    "description": "Moderate cost"
+  },
+  "BN": {
+    "index": 140,
+    "description": "Moderate cost"
+  },
+  "MO": {
+    "index": 138,
+    "description": "Moderate cost"
+  }
+}

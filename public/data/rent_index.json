@@ -10,9 +10,9 @@
     "tier2": 120
   },
   "SG": {
-    "capital": 250,
-    "tier1": 180,
-    "tier2": 120
+    "capital": 420,
+    "tier1": 350,
+    "tier2": 250
   },
   "CH": {
     "capital": 250,
@@ -23,5 +23,55 @@
     "capital": 250,
     "tier1": 180,
     "tier2": 120
+  },
+  "GB": {
+    "capital": 250,
+    "tier1": 180,
+    "tier2": 120
+  },
+  "CA": {
+    "capital": 260,
+    "tier1": 270,
+    "tier2": 185
+  },
+  "AE": {
+    "capital": 220,
+    "tier1": 180,
+    "tier2": 120
+  },
+  "NO": {
+    "capital": 250,
+    "tier1": 180,
+    "tier2": 120
+  },
+  "IE": {
+    "capital": 250,
+    "tier1": 180,
+    "tier2": 120
+  },
+  "LU": {
+    "capital": 250,
+    "tier1": 180,
+    "tier2": 120
+  },
+  "AU": {
+    "capital": 250,
+    "tier1": 190,
+    "tier2": 140
+  },
+  "QA": {
+    "capital": 250,
+    "tier1": 180,
+    "tier2": 120
+  },
+  "BN": {
+    "capital": 220,
+    "tier1": 180,
+    "tier2": 120
+  },
+  "MO": {
+    "capital": 250,
+    "tier1": 180,
+    "tier2": 130
   }
 }

@@ -5,18 +5,58 @@
   },
   "IN": {
     "effectiveRate": 0.28,
-    "description": "Income tax + statutory deductions"
+    "description": "Income tax + SS"
   },
   "SG": {
     "effectiveRate": 0.22,
-    "description": "Income tax + Employee CPF"
+    "description": "Income tax + SS"
   },
   "CH": {
-    "effectiveRate": 0.28,
+    "effectiveRate": 0.23,
     "description": "Income tax + SS"
   },
   "NL": {
+    "effectiveRate": 0.4,
+    "description": "Effective Income tax + SS for €78k"
+  },
+  "GB": {
     "effectiveRate": 0.28,
+    "description": "Income tax + SS"
+  },
+  "CA": {
+    "effectiveRate": 0.3,
+    "description": "Federal + Provincial income tax + CPP/EI"
+  },
+  "AE": {
+    "effectiveRate": 0,
+    "description": "No personal income tax or social security contributions for expatriates"
+  },
+  "NO": {
+    "effectiveRate": 0.28,
+    "description": "Income tax + SS"
+  },
+  "IE": {
+    "effectiveRate": 0.33,
+    "description": "Income tax + SS"
+  },
+  "LU": {
+    "effectiveRate": 0.28,
+    "description": "Income tax + SS"
+  },
+  "AU": {
+    "effectiveRate": 0.22,
+    "description": "Income tax + Medicare levy"
+  },
+  "QA": {
+    "effectiveRate": 0,
+    "description": "No personal income tax"
+  },
+  "BN": {
+    "effectiveRate": 0.06,
+    "description": "Income tax + SS"
+  },
+  "MO": {
+    "effectiveRate": 0.088,
     "description": "Income tax + SS"
   }
 }

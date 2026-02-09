@@ -4,16 +4,16 @@
     "description": "Moderate cost"
   },
   "IN": {
-    "index": 135,
+    "index": 120,
     "description": "Moderate cost"
   },
   "SG": {
-    "index": 475,
+    "index": 150,
     "description": "Moderate cost"
   },
   "CH": {
-    "index": 210,
-    "description": "Very high cost"
+    "index": 250,
+    "description": "Moderate cost"
   },
   "NL": {
     "index": 135,
@@ -24,11 +24,11 @@
     "description": "Moderate cost"
   },
   "CA": {
-    "index": 138,
-    "description": "Moderate cost for a single person, excluding rent"
+    "index": 135,
+    "description": "Moderate cost"
   },
   "AE": {
-    "index": 135,
+    "index": 140,
     "description": "Moderate cost"
   },
   "NO": {
@@ -40,7 +40,7 @@
     "description": "Moderate cost"
   },
   "LU": {
-    "index": 135,
+    "index": 175,
     "description": "Moderate cost"
   },
   "AU": {
@@ -52,11 +52,11 @@
     "description": "Moderate cost"
   },
   "BN": {
-    "index": 135,
+    "index": 73,
     "description": "Moderate cost"
   },
   "MO": {
-    "index": 135,
-    "description": "Moderate cost"
+    "index": 116,
+    "description": "Moderate cost (excluding rent)"
   }
 }

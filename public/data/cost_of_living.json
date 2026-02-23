@@ -12,8 +12,8 @@
     "description": "Moderate cost"
   },
   "CH": {
-    "index": 235,
-    "description": "Moderate cost"
+    "index": 220,
+    "description": "Very High cost"
   },
   "NL": {
     "index": 135,
@@ -32,8 +32,8 @@
     "description": "Moderate cost"
   },
   "NO": {
-    "index": 146,
-    "description": "Very high cost"
+    "index": 310,
+    "description": "Moderate cost"
   },
   "IE": {
     "index": 135,
@@ -44,15 +44,15 @@
     "description": "Moderate cost"
   },
   "AU": {
-    "index": 201,
+    "index": 135,
     "description": "Moderate cost"
   },
   "QA": {
-    "index": 150,
+    "index": 135,
     "description": "Moderate cost"
   },
   "BN": {
-    "index": 125,
+    "index": 130,
     "description": "Moderate cost"
   },
   "MO": {

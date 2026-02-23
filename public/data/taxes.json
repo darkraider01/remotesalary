@@ -5,26 +5,26 @@
   },
   "IN": {
     "effectiveRate": 0.28,
-    "description": "Income tax + Cess + Social Security Contributions"
-  },
-  "SG": {
-    "effectiveRate": 0.3,
     "description": "Income tax + SS"
   },
+  "SG": {
+    "effectiveRate": 0.2155,
+    "description": "Income tax + CPF (SS equivalent)"
+  },
   "CH": {
-    "effectiveRate": 0.28,
+    "effectiveRate": 0.21,
     "description": "Income tax + SS"
   },
   "NL": {
-    "effectiveRate": 0.28,
-    "description": "Income tax + SS"
+    "effectiveRate": 0.35,
+    "description": "Effective income tax + SS"
   },
   "GB": {
     "effectiveRate": 0.28,
     "description": "Income tax + SS"
   },
   "CA": {
-    "effectiveRate": 0.29,
+    "effectiveRate": 0.28,
     "description": "Income tax + SS"
   },
   "AE": {
@@ -32,31 +32,31 @@
     "description": "No personal income tax"
   },
   "NO": {
-    "effectiveRate": 0.31,
+    "effectiveRate": 0.3,
     "description": "Income tax + SS"
   },
   "IE": {
-    "effectiveRate": 0.33,
-    "description": "Income tax + USC + PRSI"
+    "effectiveRate": 0.32,
+    "description": "Income tax + SS"
   },
   "LU": {
-    "effectiveRate": 0.25,
+    "effectiveRate": 0.28,
     "description": "Income tax + SS"
   },
   "AU": {
     "effectiveRate": 0.23,
-    "description": "Income tax + SS"
+    "description": "Income tax + Medicare Levy"
   },
   "QA": {
     "effectiveRate": 0,
-    "description": "No personal income tax"
+    "description": "Income tax + SS"
   },
   "BN": {
     "effectiveRate": 0.085,
-    "description": "Income tax + SS"
+    "description": "Mandatory contributions (TAP/SCP)"
   },
   "MO": {
-    "effectiveRate": 0.08,
+    "effectiveRate": 0.07,
     "description": "Income tax + SS"
   }
 }

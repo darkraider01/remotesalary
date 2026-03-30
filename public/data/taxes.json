@@ -1,15 +1,15 @@
 {
   "US": {
     "effectiveRate": 0.28,
-    "description": "Income tax + SS"
+    "description": "Income tax + SS + avg state tax"
   },
   "IN": {
     "effectiveRate": 0.28,
-    "description": "Income tax + SS"
+    "description": "Income tax + cess"
   },
   "SG": {
-    "effectiveRate": 0.3,
-    "description": "Income tax + SS"
+    "effectiveRate": 0.064,
+    "description": "Income tax"
   },
   "CH": {
     "effectiveRate": 0.28,
@@ -17,23 +17,23 @@
   },
   "NL": {
     "effectiveRate": 0.28,
-    "description": "Income tax + SS"
+    "description": "Income tax + SS (effective rate, potentially factoring in 30% ruling for expats)"
   },
   "GB": {
     "effectiveRate": 0.28,
-    "description": "Income tax + National Insurance"
+    "description": "Income tax + SS"
   },
   "CA": {
-    "effectiveRate": 0.3,
+    "effectiveRate": 0.29,
     "description": "Income tax + SS"
   },
   "AE": {
     "effectiveRate": 0,
-    "description": "No personal income tax"
+    "description": "No personal income tax for expats"
   },
   "NO": {
-    "effectiveRate": 0.32,
-    "description": "Effective Income tax + SS"
+    "effectiveRate": 0.28,
+    "description": "Income tax + SS"
   },
   "IE": {
     "effectiveRate": 0.32,
@@ -45,18 +45,18 @@
   },
   "AU": {
     "effectiveRate": 0.23,
-    "description": "Income tax + Medicare Levy"
+    "description": "Income tax + SS"
   },
   "QA": {
     "effectiveRate": 0,
-    "description": "No income tax"
+    "description": "No personal income tax"
   },
   "BN": {
-    "effectiveRate": 0.05,
-    "description": "No personal income tax; mandatory ETF contributions (5%)"
+    "effectiveRate": 0.085,
+    "description": "Social security contributions (no personal income tax)"
   },
   "MO": {
-    "effectiveRate": 0.06,
+    "effectiveRate": 0.083,
     "description": "Income tax + SS"
   }
 }

@@ -2,18 +2,18 @@
   "base": "USD",
   "rates": {
     "USD": 1,
-    "INR": 83.3,
+    "INR": 83.35,
     "SGD": 1.35,
     "CHF": 0.9,
-    "EUR": 0.93,
+    "EUR": 0.92,
     "GBP": 0.79,
     "CAD": 1.36,
     "AED": 3.67,
     "NOK": 10.9,
-    "AUD": 1.5,
+    "AUD": 1.52,
     "QAR": 3.64,
     "BND": 1.35,
-    "MOP": 8.08
+    "MOP": 8.07
   },
-  "lastUpdated": "2026-03-30"
+  "lastUpdated": "2026-04-06"
 }

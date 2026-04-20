@@ -4,35 +4,31 @@
     "description": "Moderate cost"
   },
   "IN": {
-    "index": 65,
-    "description": "Low cost"
-  },
-  "SG": {
-    "index": 168,
-    "description": "Moderate cost"
-  },
-  "CH": {
     "index": 135,
     "description": "Moderate cost"
   },
+  "SG": {
+    "index": 135,
+    "description": "Moderate cost"
+  },
+  "CH": {
+    "index": 280,
+    "description": "Moderate cost"
+  },
   "NL": {
-    "index": 150,
+    "index": 135,
     "description": "Moderate cost"
   },
   "GB": {
     "index": 135,
     "description": "Moderate cost"
   },
-  "CA": {
-    "index": 135,
-    "description": "Moderate cost"
-  },
   "AE": {
-    "index": 188,
+    "index": 136,
     "description": "Moderate cost"
   },
   "NO": {
-    "index": 134,
+    "index": 135,
     "description": "Moderate cost"
   },
   "IE": {
@@ -40,7 +36,7 @@
     "description": "Moderate cost"
   },
   "AU": {
-    "index": 260,
+    "index": 135,
     "description": "Moderate cost"
   },
   "QA": {
@@ -48,7 +44,7 @@
     "description": "Moderate cost"
   },
   "BN": {
-    "index": 79,
-    "description": "Relatively low cost (without rent)"
+    "index": 65,
+    "description": "Low cost"
   }
 }

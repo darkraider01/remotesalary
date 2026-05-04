@@ -4,15 +4,15 @@
     "description": "Moderate cost"
   },
   "IN": {
-    "index": 100,
+    "index": 53,
     "description": "Moderate cost"
   },
   "SG": {
-    "index": 188,
+    "index": 150,
     "description": "High cost"
   },
   "CH": {
-    "index": 230,
+    "index": 248,
     "description": "Moderate cost"
   },
   "NL": {
@@ -32,7 +32,7 @@
     "description": "Moderate cost"
   },
   "NO": {
-    "index": 145,
+    "index": 175,
     "description": "Moderate cost"
   },
   "IE": {
@@ -44,19 +44,19 @@
     "description": "Moderate cost"
   },
   "AU": {
+    "index": 325,
+    "description": "Moderate cost for a single person"
+  },
+  "QA": {
     "index": 135,
     "description": "Moderate cost"
   },
-  "QA": {
-    "index": 155,
-    "description": "Moderate cost (excl. rent)"
-  },
   "BN": {
-    "index": 110,
+    "index": 139,
     "description": "Moderate cost"
   },
   "MO": {
-    "index": 135,
+    "index": 287,
     "description": "Moderate cost"
   }
 }

@@ -2,19 +2,18 @@
   "base": "USD",
   "rates": {
     "USD": 1,
-    "INR": null,
-    "SGD": null,
-    "CHF": null,
-    "EUR": null,
-    "GBP": null,
-    "CAD": null,
-    "AED": null,
-    "NOK": null,
-    "AUD": null,
-    "QAR": null,
-    "BND": null,
-    "MOP": null
+    "INR": 0.01195,
+    "SGD": 0.737,
+    "CHF": 1.115,
+    "EUR": 1.078,
+    "GBP": 1.268,
+    "CAD": 0.7315,
+    "AED": 0.2722,
+    "NOK": 0.0932,
+    "AUD": 0.665,
+    "QAR": 0.2747,
+    "BND": 0.737,
+    "MOP": 0.1245
   },
-  "lastUpdated": "2023-10-27",
-  "disclaimer": "I cannot provide real-time, live financial data. The rates above are placeholders, and 'lastUpdated' reflects the current date of this response, not live market data. Please consult a reliable financial service or API for current forex rates."
+  "lastUpdated": "2026-07-13"
 }

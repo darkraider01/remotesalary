@@ -8,7 +8,8 @@ import {
   CountryDataZodSchema,
   countryDataResponseSchema,
   CurrencyRatesZodSchema,
-  currencyRatesResponseSchema
+  currencyRatesResponseSchema,
+  extractAndParseJSON
 } from './schemas';
 
 config();
@@ -33,21 +34,22 @@ async function main() {
 
   console.log(`Found ${countries.length} countries\n`);
 
-  // 1. Currency Rates
-  console.log('1. Fetching currency rates...');
-  const currencies = Array.from(new Set(countries.map(c => c.currency)));
-  const currencyData = await fetchCurrencyRates(currencies);
-
-  // 2. Load existing Rent, COL, Tax data as baseline fallbacks
-  console.log('2. Fetching rent, cost of living, and tax data...');
+  // Load all 4 baseline files at startup for consistent retention behavior
+  const currencyPath = path.join(process.cwd(), 'public/data/currency_rates.json');
   const rentPath = path.join(process.cwd(), 'public/data/rent_index.json');
   const colPath = path.join(process.cwd(), 'public/data/cost_of_living.json');
   const taxPath = path.join(process.cwd(), 'public/data/taxes.json');
 
+  let currencyData: Record<string, any> = {};
   let rentData: Record<string, any> = {};
   let colData: Record<string, any> = {};
   let taxData: Record<string, any> = {};
 
+  try {
+    currencyData = JSON.parse(await fs.readFile(currencyPath, 'utf-8'));
+  } catch (e) {
+    console.warn('Warning: Could not load existing currency_rates.json baseline');
+  }
   try {
     rentData = JSON.parse(await fs.readFile(rentPath, 'utf-8'));
   } catch (e) {
@@ -66,6 +68,27 @@ async function main() {
 
   let hasFailures = false;
 
+  // 1. Currency Rates
+  console.log('1. Fetching currency rates...');
+  const currencies = Array.from(new Set(countries.map(c => c.currency)));
+  try {
+    currencyData = await fetchCurrencyRates(currencies);
+    console.log('  ✓ Currency rates updated successfully\n');
+  } catch (error: any) {
+    hasFailures = true;
+    console.error('  ✗ Currency rates update failed:\n', error.message);
+    if (currencyData && currencyData.rates) {
+      console.log('    -> Retained existing baseline data for currency rates');
+    } else {
+      console.error('    -> CRITICAL: No existing currency baseline data available');
+    }
+  }
+
+  await delay(2000);
+
+  // 2. Rent, COL, Tax data
+  console.log('2. Fetching rent, cost of living, and tax data...');
+
   for (const country of countries) {
     console.log(`  Processing ${country.code} (${country.name})...`);
 
@@ -77,7 +100,7 @@ async function main() {
       console.log(`  ✓ ${country.code} complete`);
     } catch (error: any) {
       hasFailures = true;
-      console.error(`  ✗ ${country.code} failed:`, error.message);
+      console.error(`  ✗ ${country.code} failed:\n`, error.message);
       if (rentData[country.code]) {
         console.log(`    -> Retained existing baseline data for ${country.code}`);
       } else {
@@ -89,15 +112,12 @@ async function main() {
   }
 
   if (hasFailures) {
-    console.error('\n✗ Data update completed with errors! Retained existing baseline for failed countries.');
+    console.error('\n✗ Data update completed with errors! Retained existing baseline for failed items.');
     console.error('Aborting file write to exit with failure and protect production data.');
     process.exit(1);
   }
 
-  await fs.writeFile(
-    path.join(process.cwd(), 'public/data/currency_rates.json'),
-    JSON.stringify(currencyData, null, 2)
-  );
+  await fs.writeFile(currencyPath, JSON.stringify(currencyData, null, 2));
   await fs.writeFile(rentPath, JSON.stringify(rentData, null, 2));
   await fs.writeFile(colPath, JSON.stringify(colData, null, 2));
   await fs.writeFile(taxPath, JSON.stringify(taxData, null, 2));
@@ -111,6 +131,9 @@ async function fetchCurrencyRates(currencies: string[]) {
     try {
       const url = `https://v6.exchangerate-api.com/v6/${exchangeRateApiKey}/latest/USD`;
       const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`ExchangeRate-API HTTP ${response.status}: ${response.statusText}`);
+      }
       const data = await response.json();
 
       const rates: Record<string, number> = { USD: 1.0 };
@@ -125,8 +148,8 @@ async function fetchCurrencyRates(currencies: string[]) {
         rates,
         lastUpdated: new Date().toISOString().split('T')[0]
       };
-    } catch (error) {
-      console.log('  ExchangeRate-API failed, using AI...');
+    } catch (error: any) {
+      console.log(`  ⚠ ExchangeRate-API failed (${error.message}), attempting AI fallback...`);
     }
   }
 
@@ -142,15 +165,8 @@ async function fetchCurrencyRates(currencies: string[]) {
   const prompt = `Provide current exchange rates for: ${currencies.join(', ')} relative to base USD.`;
 
   const result = await model.generateContent(prompt);
-  let text = result.response.text().trim();
-
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (jsonMatch) {
-    text = jsonMatch[0];
-  }
-
-  const rawData = JSON.parse(text);
-  const validated = CurrencyRatesZodSchema.parse(rawData);
+  const rawText = result.response.text();
+  const validated = extractAndParseJSON(rawText, CurrencyRatesZodSchema);
 
   const ratesMap: Record<string, number> = { USD: 1.0 };
   for (const item of validated.rates) {
@@ -176,17 +192,8 @@ export async function fetchCountryData(country: Country): Promise<CountryData> {
   const prompt = `For ${country.name} (capital: ${country.capital}), calculate current tax rate for an $85k USD earner, rent indices where baseline 100=$1000/month (for capital, tier1, and tier2 cities), and cost of living index where baseline 100=$800/month excluding rent.`;
 
   const result = await model.generateContent(prompt);
-  let text = result.response.text().trim();
-
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (jsonMatch) {
-    text = jsonMatch[0];
-  }
-
-  const rawData = JSON.parse(text);
-  const validated = CountryDataZodSchema.parse(rawData);
-
-  return validated;
+  const rawText = result.response.text();
+  return extractAndParseJSON(rawText, CountryDataZodSchema);
 }
 
 main().catch(error => {

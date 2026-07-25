@@ -1,4 +1,4 @@
-import { CountryDataZodSchema, CurrencyRatesZodSchema } from './schemas';
+import { CountryDataZodSchema, CurrencyRatesZodSchema, extractAndParseJSON } from './schemas';
 
 function runTests() {
   console.log('Running Zod schema validation unit tests...');
@@ -104,6 +104,47 @@ function runTests() {
     process.exit(1);
   } catch (err: any) {
     console.log('✓ Test 6 Passed: Correctly caught negative exchange rate');
+  }
+
+  // Test 7: extractAndParseJSON with markdown code fences and surrounding text
+  const markdownFencedRawOutput = `Here is the requested output:
+\`\`\`json
+{
+  "tax": { "rate": 0.25, "desc": "Standard rate" },
+  "rent": { "capital": 200, "tier1": 150, "tier2": 100 },
+  "col": { "index": 110, "desc": "Moderate" }
+}
+\`\`\`
+Hope this helps!`;
+
+  try {
+    const parsed = extractAndParseJSON(markdownFencedRawOutput, CountryDataZodSchema);
+    console.log('✓ Test 7 Passed: Successfully extracted JSON from markdown fences:', parsed.tax.rate);
+  } catch (err: any) {
+    console.error('✗ Test 7 Failed:', err.message);
+    process.exit(1);
+  }
+
+  // Test 8: extractAndParseJSON formatting path-level Zod errors
+  const malformedZodRawOutput = `\`\`\`json
+{
+  "tax": { "rate": 15.5, "desc": "Over 1.0 tax rate" },
+  "rent": { "capital": -50, "tier1": 150, "tier2": 100 },
+  "col": { "index": 110, "desc": "" }
+}
+\`\`\``;
+
+  try {
+    extractAndParseJSON(malformedZodRawOutput, CountryDataZodSchema);
+    console.error('✗ Test 8 Failed: Should have thrown formatted Zod error');
+    process.exit(1);
+  } catch (err: any) {
+    if (err.message.includes('tax.rate') && err.message.includes('rent.capital')) {
+      console.log('✓ Test 8 Passed: Correctly formatted path-level Zod diagnostic errors');
+    } else {
+      console.error('✗ Test 8 Failed with unexpected error structure:', err.message);
+      process.exit(1);
+    }
   }
 
   console.log('\n✓ All Zod schema unit tests passed successfully!');

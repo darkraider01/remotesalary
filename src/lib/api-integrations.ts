@@ -1,5 +1,6 @@
 import { SchemaType } from '@google/generative-ai';
 import { z } from 'zod';
+import { extractAndParseJSON } from '../../scripts/schemas';
 
 /**
  * API Integration Layer
@@ -231,13 +232,7 @@ export async function fetchTaxDataAI(
   const prompt = `You are a tax policy expert. Calculate the effective tax rate for ${countryName} (${countryCode}) as of ${new Date().toISOString().split('T')[0]} for a single professional earning $85,000 USD equivalent annually. Include federal income tax, mandatory social security, and health contributions minus standard deductions.`;
 
   const result = await model.generateContent(prompt);
-  let text = result.response.text().replace(/```json\n?|\n?```/g, '').trim();
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (jsonMatch) {
-    text = jsonMatch[0];
-  }
-  const data = JSON.parse(text);
-  const validated = TaxDataZodSchema.parse(data);
+  const validated = extractAndParseJSON(result.response.text(), TaxDataZodSchema);
   
   return {
     effectiveRate: validated.effectiveRate,
@@ -299,13 +294,7 @@ export async function fetchRentWithFallback(
   const prompt = `Provide monthly rent indices for ${country} (capital: ${city}) as of ${new Date().toISOString().split('T')[0]} for typical 1-bedroom apartments. Baseline: 100 = $1,000 USD/month.`;
 
   const result = await model.generateContent(prompt);
-  let text = result.response.text().replace(/```json\n?|\n?```/g, '').trim();
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (jsonMatch) {
-    text = jsonMatch[0];
-  }
-  const data = JSON.parse(text);
-  return NumbeoRentZodSchema.parse(data);
+  return extractAndParseJSON(result.response.text(), NumbeoRentZodSchema);
 }
 
 /**
@@ -354,11 +343,5 @@ export async function fetchCOLWithFallback(
   const prompt = `Provide cost of living index excluding rent for ${country} as of ${new Date().toISOString().split('T')[0]} for a single professional. Baseline: 100 = $800 USD/month. Include groceries, transport, utilities, entertainment, and healthcare.`;
 
   const result = await model.generateContent(prompt);
-  let text = result.response.text().replace(/```json\n?|\n?```/g, '').trim();
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (jsonMatch) {
-    text = jsonMatch[0];
-  }
-  const data = JSON.parse(text);
-  return NumbeoCOLZodSchema.parse(data);
+  return extractAndParseJSON(result.response.text(), NumbeoCOLZodSchema);
 }

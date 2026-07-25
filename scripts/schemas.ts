@@ -5,6 +5,14 @@ import { z } from 'zod';
 // COUNTRY DATA SCHEMAS
 // ============================================================================
 
+export interface Country {
+  code: string;
+  name: string;
+  currency: string;
+  region: string;
+  capital: string;
+}
+
 export const CountryDataZodSchema = z.object({
   tax: z.object({
     rate: z.number().min(0).max(1),

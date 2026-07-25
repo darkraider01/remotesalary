@@ -1,3 +1,6 @@
+import { SchemaType } from '@google/generative-ai';
+import { z } from 'zod';
+
 /**
  * API Integration Layer
  * Centralized clients for all external data sources
@@ -172,6 +175,23 @@ export async function fetchNumbeoCOL(
   };
 }
 
+// Zod Schemas for Runtime Validation
+const TaxDataZodSchema = z.object({
+  effectiveRate: z.number().min(0).max(1),
+  description: z.string().min(1)
+});
+
+const NumbeoRentZodSchema = z.object({
+  capital: z.number().positive(),
+  tier1: z.number().positive(),
+  tier2: z.number().positive()
+});
+
+const NumbeoCOLZodSchema = z.object({
+  index: z.number().positive(),
+  description: z.string().min(1)
+});
+
 // ============================================================================
 // GEMINI AI CLIENT
 // ============================================================================
@@ -187,47 +207,41 @@ export async function fetchTaxDataAI(
   countryName: string,
   countryCode: string
 ): Promise<TaxDataResponse> {
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+  const model = genAI.getGenerativeModel({
+    model: 'gemini-2.5-flash',
+    generationConfig: {
+      responseMimeType: 'application/json',
+      responseSchema: {
+        type: SchemaType.OBJECT,
+        properties: {
+          effectiveRate: {
+            type: SchemaType.NUMBER,
+            description: 'Effective tax rate as decimal between 0 and 1'
+          },
+          description: {
+            type: SchemaType.STRING,
+            description: 'Description of tax components'
+          }
+        },
+        required: ['effectiveRate', 'description']
+      }
+    }
+  });
   
-  const prompt = `You are a tax policy expert with access to current government tax databases. Provide the MOST ACCURATE effective tax rate for ${countryName} as of ${new Date().toISOString().split('T')[0]}.
-
-DATA REQUIREMENTS:
-- Source data from official government tax authority websites and current tax year regulations
-- Use the latest enacted tax laws (not proposed or pending legislation)
-- Calculate for a single professional earning $85,000 USD equivalent annually
-
-INCLUDE ALL OF THE FOLLOWING:
-1. Personal income tax (federal/national)
-2. Social security contributions (employee portion)
-3. Medicare/health insurance contributions (if mandatory)
-4. State/provincial taxes (use average if applicable)
-5. Standard deductions and personal allowances
-
-EXCLUDE:
-- Employer contributions
-- Optional retirement contributions
-- Property taxes or VAT/sales taxes
-
-CALCULATION METHOD:
-- Convert $85,000 USD to local currency using current exchange rates
-- Apply progressive tax brackets accurately
-- Subtract standard deductions before calculating tax
-- Add mandatory social contributions
-- Return as decimal (e.g., 28.5% = 0.285)
-
-Return ONLY valid JSON with no markdown, code blocks, or explanations:
-{
-  "effectiveRate": 0.285,
-  "description": "Income tax (X%) + Social security (Y%) + Health insurance (Z%) for $85K earner"
-}`;
+  const prompt = `You are a tax policy expert. Calculate the effective tax rate for ${countryName} (${countryCode}) as of ${new Date().toISOString().split('T')[0]} for a single professional earning $85,000 USD equivalent annually. Include federal income tax, mandatory social security, and health contributions minus standard deductions.`;
 
   const result = await model.generateContent(prompt);
-  const text = result.response.text().replace(/```json\n?|\n?```/g, '').trim();
+  let text = result.response.text().replace(/```json\n?|\n?```/g, '').trim();
+  const jsonMatch = text.match(/\{[\s\S]*\}/);
+  if (jsonMatch) {
+    text = jsonMatch[0];
+  }
   const data = JSON.parse(text);
+  const validated = TaxDataZodSchema.parse(data);
   
   return {
-    effectiveRate: data.effectiveRate,
-    description: data.description,
+    effectiveRate: validated.effectiveRate,
+    description: validated.description,
   };
 }
 
@@ -257,40 +271,41 @@ export async function fetchRentWithFallback(
   
   // Fallback to AI
   console.log(`  → Using AI for rent data (${city})`);
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+  const model = genAI.getGenerativeModel({
+    model: 'gemini-2.5-flash',
+    generationConfig: {
+      responseMimeType: 'application/json',
+      responseSchema: {
+        type: SchemaType.OBJECT,
+        properties: {
+          capital: {
+            type: SchemaType.NUMBER,
+            description: 'Rent index in capital city center (100 = $1000/month baseline)'
+          },
+          tier1: {
+            type: SchemaType.NUMBER,
+            description: 'Rent index in major secondary cities (100 = $1000/month baseline)'
+          },
+          tier2: {
+            type: SchemaType.NUMBER,
+            description: 'Rent index in smaller cities and suburbs (100 = $1000/month baseline)'
+          }
+        },
+        required: ['capital', 'tier1', 'tier2']
+      }
+    }
+  });
   
-  const prompt = `You are a real estate market analyst. Provide ACCURATE monthly rent data for ${country} (capital: ${city}) as of ${new Date().toISOString().split('T')[0]}.
-
-DATA REQUIREMENTS:
-- Source from current rental listings on major platforms (Zillow, Numbeo, local real estate sites)
-- Use median market rates (not luxury or budget extremes)
-- All prices should reflect typical 1-bedroom apartments in good condition
-
-CITY TIER DEFINITIONS:
-- Capital: ${city} city center (CBD/downtown business district)
-- Tier 1: Major secondary cities (2nd-3rd largest cities, tech hubs, financial centers)
-- tier 2: Smaller cities and suburban areas (regional capitals, university towns)
-
-BASELINE CALCULATION:
-- Index 100 = $1,000 USD/month
-- Example: If rent is $2,500/month, index = 250
-- Example: If rent is $600/month, index = 60
-
-ACCURACY CHECKS:
-- Verify prices match current market conditions (post-pandemic, 2025-2026 rates)
-- Cross-reference with multiple sources
-- Account for currency conversion using current exchange rates
-
-Return ONLY valid JSON with no markdown, code blocks, or explanations:
-{
-  "capital": 250,
-  "tier1": 180,
-  "tier2": 120
-}`;
+  const prompt = `Provide monthly rent indices for ${country} (capital: ${city}) as of ${new Date().toISOString().split('T')[0]} for typical 1-bedroom apartments. Baseline: 100 = $1,000 USD/month.`;
 
   const result = await model.generateContent(prompt);
-  const text = result.response.text().replace(/```json\n?|\n?```/g, '').trim();
-  return JSON.parse(text);
+  let text = result.response.text().replace(/```json\n?|\n?```/g, '').trim();
+  const jsonMatch = text.match(/\{[\s\S]*\}/);
+  if (jsonMatch) {
+    text = jsonMatch[0];
+  }
+  const data = JSON.parse(text);
+  return NumbeoRentZodSchema.parse(data);
 }
 
 /**
@@ -315,41 +330,35 @@ export async function fetchCOLWithFallback(
   
   // Fallback to AI
   console.log(`  → Using AI for COL data (${city})`);
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+  const model = genAI.getGenerativeModel({
+    model: 'gemini-2.5-flash',
+    generationConfig: {
+      responseMimeType: 'application/json',
+      responseSchema: {
+        type: SchemaType.OBJECT,
+        properties: {
+          index: {
+            type: SchemaType.NUMBER,
+            description: 'Cost of living index excluding rent (100 = $800/month baseline)'
+          },
+          description: {
+            type: SchemaType.STRING,
+            description: 'Description of cost of living tier'
+          }
+        },
+        required: ['index', 'description']
+      }
+    }
+  });
   
-  const prompt = `You are a cost of living analyst. Provide ACCURATE monthly living expenses (EXCLUDING RENT) for ${country} as of ${new Date().toISOString().split('T')[0]}.
-
-DATA REQUIREMENTS:
-- Source from consumer price databases (Numbeo, Expatistan, government statistics)
-- Use median costs for a single professional living alone
-- Reflect current market prices (2025-2026 data)
-
-INCLUDE THESE CATEGORIES:
-1. Food & Groceries: Supermarket shopping for one person (~$250-400/month baseline)
-2. Transportation: Public transit pass or fuel/car costs (~$100-150/month baseline)
-3. Utilities: Electricity, water, gas, internet for 1-bedroom apt (~$100-200/month baseline)
-4. Entertainment: Dining out 2x/week, gym, streaming services (~$150-250/month baseline)
-5. Healthcare: Insurance premiums or out-of-pocket costs (~$50-150/month baseline)
-
-BASELINE CALCULATION:
-- Index 100 = $800 USD/month total across all categories
-- Example: If total is $1,200/month, index = 150
-- Example: If total is $500/month, index = 62.5 (round to 63)
-
-DESCRIPTION GUIDELINES:
-- Index < 60: "Very low cost, highly affordable for all categories"
-- Index 60-99: "Low to moderate cost, affordable living"
-- Index 100-139: "Moderate to high cost, typical for developed nations"
-- Index 140-179: "High cost, particularly for services and imported goods"
-- Index 180+: "Very high cost, among the most expensive globally"
-
-Return ONLY valid JSON with no markdown, code blocks, or explanations:
-{
-  "index": 120,
-  "description": "Moderate to high cost, typical for developed nations"
-}`;
+  const prompt = `Provide cost of living index excluding rent for ${country} as of ${new Date().toISOString().split('T')[0]} for a single professional. Baseline: 100 = $800 USD/month. Include groceries, transport, utilities, entertainment, and healthcare.`;
 
   const result = await model.generateContent(prompt);
-  const text = result.response.text().replace(/```json\n?|\n?```/g, '').trim();
-  return JSON.parse(text);
+  let text = result.response.text().replace(/```json\n?|\n?```/g, '').trim();
+  const jsonMatch = text.match(/\{[\s\S]*\}/);
+  if (jsonMatch) {
+    text = jsonMatch[0];
+  }
+  const data = JSON.parse(text);
+  return NumbeoCOLZodSchema.parse(data);
 }

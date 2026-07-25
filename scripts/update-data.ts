@@ -12,22 +12,27 @@ import {
   extractAndParseJSON
 } from './schemas';
 
-config();
+let genAIInstance: GoogleGenerativeAI | null = null;
 
-const geminiApiKey = process.env.GEMINI_API_KEY;
-const exchangeRateApiKey = process.env.EXCHANGE_RATE_API_KEY;
-
-if (!geminiApiKey) {
-  console.error('Error: GEMINI_API_KEY not found');
-  process.exit(1);
+function getGenAI(): GoogleGenerativeAI {
+  config();
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error('GEMINI_API_KEY environment variable not found');
+  }
+  if (!genAIInstance) {
+    genAIInstance = new GoogleGenerativeAI(apiKey);
+  }
+  return genAIInstance;
 }
-
-const genAI = new GoogleGenerativeAI(geminiApiKey);
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function main() {
   console.log('Starting data update...\n');
+
+  // Verify Gemini API key is available before starting
+  getGenAI();
 
   const countriesPath = path.join(process.cwd(), 'public/data/countries.json');
   const countries: Country[] = JSON.parse(await fs.readFile(countriesPath, 'utf-8'));
@@ -118,7 +123,7 @@ async function main() {
   }
 
   await fs.writeFile(currencyPath, JSON.stringify(currencyData, null, 2));
-  await fs.writeFile(rentPath, JSON.stringify(rentData, null, 2));
+  await fs.writeFile(rentPath, JSON.stringify(rentPath, null, 2));
   await fs.writeFile(colPath, JSON.stringify(colData, null, 2));
   await fs.writeFile(taxPath, JSON.stringify(taxData, null, 2));
 
@@ -127,6 +132,9 @@ async function main() {
 }
 
 async function fetchCurrencyRates(currencies: string[]) {
+  config();
+  const exchangeRateApiKey = process.env.EXCHANGE_RATE_API_KEY;
+
   if (exchangeRateApiKey) {
     try {
       const url = `https://v6.exchangerate-api.com/v6/${exchangeRateApiKey}/latest/USD`;
@@ -154,6 +162,7 @@ async function fetchCurrencyRates(currencies: string[]) {
   }
 
   // AI fallback
+  const genAI = getGenAI();
   const model = genAI.getGenerativeModel({
     model: 'gemini-2.5-flash',
     generationConfig: {
@@ -181,6 +190,7 @@ async function fetchCurrencyRates(currencies: string[]) {
 }
 
 export async function fetchCountryData(country: Country): Promise<CountryData> {
+  const genAI = getGenAI();
   const model = genAI.getGenerativeModel({
     model: 'gemini-2.5-flash',
     generationConfig: {

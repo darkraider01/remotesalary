@@ -1,7 +1,12 @@
-import { CountryDataZodSchema, CurrencyRatesZodSchema, extractAndParseJSON } from './schemas';
+import {
+  CountryDataZodSchema,
+  CurrencyRatesZodSchema,
+  extractAndParseJSON,
+  extractFirstJSONString
+} from './schemas';
 
 function runTests() {
-  console.log('Running Zod schema validation unit tests...');
+  console.log('Running Zod schema validation & JSON extraction unit tests...');
 
   // Test 1: Valid country data
   const validData = {
@@ -71,43 +76,57 @@ function runTests() {
     console.log('✓ Test 4 Passed: Correctly caught missing required fields');
   }
 
-  // Test 5: Valid currency rates
+  // Test 5: Valid currency rates with lowercase code normalization
   const validCurrencyData = {
-    base: 'USD',
+    base: 'usd ',
     rates: [
-      { currency: 'EUR', rate: 0.92 },
-      { currency: 'GBP', rate: 0.78 }
+      { currency: 'eur', rate: 0.92 },
+      { currency: 'gbp ', rate: 0.78 }
     ],
     lastUpdated: '2026-07-25'
   };
 
   try {
     const result = CurrencyRatesZodSchema.parse(validCurrencyData);
-    console.log('✓ Test 5 Passed: Valid currency rates parsed successfully:', result.rates.length, 'currencies');
+    if (result.base === 'USD' && result.rates[0].currency === 'EUR' && result.rates[1].currency === 'GBP') {
+      console.log('✓ Test 5 Passed: Currency codes and base correctly normalized to uppercase ISO format');
+    } else {
+      console.error('✗ Test 5 Failed: Currency normalization output mismatch');
+      process.exit(1);
+    }
   } catch (err: any) {
     console.error('✗ Test 5 Failed:', err.message);
     process.exit(1);
   }
 
-  // Test 6: Invalid currency rate (non-positive)
-  const invalidCurrencyData = {
-    base: 'USD',
-    rates: [
-      { currency: 'EUR', rate: -0.92 }
-    ],
+  // Test 6: Non-USD base rejection
+  const nonUsdBaseData = {
+    base: 'EUR',
+    rates: [{ currency: 'USD', rate: 1.08 }],
     lastUpdated: '2026-07-25'
   };
 
   try {
-    CurrencyRatesZodSchema.parse(invalidCurrencyData);
-    console.error('✗ Test 6 Failed: Should have rejected negative exchange rate');
+    CurrencyRatesZodSchema.parse(nonUsdBaseData);
+    console.error('✗ Test 6 Failed: Should have rejected non-USD base');
     process.exit(1);
   } catch (err: any) {
-    console.log('✓ Test 6 Passed: Correctly caught negative exchange rate');
+    console.log('✓ Test 6 Passed: Correctly rejected non-USD base currency');
   }
 
-  // Test 7: extractAndParseJSON with markdown code fences and surrounding text
-  const markdownFencedRawOutput = `Here is the requested output:
+  // Test 7: extractFirstJSONString with braces inside string literals and trailing text
+  const complexRawOutput = `Here is your JSON object: {"tax": {"rate": 0.2, "desc": "Note: {special} deduction"}, "rent": {"capital": 100, "tier1": 70, "tier2": 50}, "col": {"index": 90, "desc": "OK"}} and trailing commentary`;
+
+  const extracted = extractFirstJSONString(complexRawOutput);
+  if (extracted && extracted.startsWith('{') && extracted.endsWith('}') && !extracted.includes('trailing commentary')) {
+    console.log('✓ Test 7 Passed: Depth-balanced JSON scanner correctly extracted outer payload ignoring braces inside string quotes');
+  } else {
+    console.error('✗ Test 7 Failed: Extraction output mismatch:', extracted);
+    process.exit(1);
+  }
+
+  // Test 8: extractAndParseJSON with markdown code fences
+  const markdownFencedRawOutput = `Here is the response:
 \`\`\`json
 {
   "tax": { "rate": 0.25, "desc": "Standard rate" },
@@ -119,13 +138,13 @@ Hope this helps!`;
 
   try {
     const parsed = extractAndParseJSON(markdownFencedRawOutput, CountryDataZodSchema);
-    console.log('✓ Test 7 Passed: Successfully extracted JSON from markdown fences:', parsed.tax.rate);
+    console.log('✓ Test 8 Passed: Successfully extracted & validated JSON from markdown fences:', parsed.tax.rate);
   } catch (err: any) {
-    console.error('✗ Test 7 Failed:', err.message);
+    console.error('✗ Test 8 Failed:', err.message);
     process.exit(1);
   }
 
-  // Test 8: extractAndParseJSON formatting path-level Zod errors
+  // Test 9: extractAndParseJSON formatting path-level Zod errors
   const malformedZodRawOutput = `\`\`\`json
 {
   "tax": { "rate": 15.5, "desc": "Over 1.0 tax rate" },
@@ -136,18 +155,18 @@ Hope this helps!`;
 
   try {
     extractAndParseJSON(malformedZodRawOutput, CountryDataZodSchema);
-    console.error('✗ Test 8 Failed: Should have thrown formatted Zod error');
+    console.error('✗ Test 9 Failed: Should have thrown formatted Zod error');
     process.exit(1);
   } catch (err: any) {
     if (err.message.includes('tax.rate') && err.message.includes('rent.capital')) {
-      console.log('✓ Test 8 Passed: Correctly formatted path-level Zod diagnostic errors');
+      console.log('✓ Test 9 Passed: Correctly formatted path-level Zod diagnostic errors');
     } else {
-      console.error('✗ Test 8 Failed with unexpected error structure:', err.message);
+      console.error('✗ Test 9 Failed with unexpected error structure:', err.message);
       process.exit(1);
     }
   }
 
-  console.log('\n✓ All Zod schema unit tests passed successfully!');
+  console.log('\n✓ All Zod schema & JSON scanner unit tests passed successfully!');
 }
 
 runTests();

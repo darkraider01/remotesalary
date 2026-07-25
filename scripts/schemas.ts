@@ -1,17 +1,12 @@
 import { SchemaType } from '@google/generative-ai';
 import { z } from 'zod';
+import type { Country } from '../src/types';
+
+export type { Country };
 
 // ============================================================================
 // COUNTRY DATA SCHEMAS
 // ============================================================================
-
-export interface Country {
-  code: string;
-  name: string;
-  currency: string;
-  region: string;
-  capital: string;
-}
 
 export const CountryDataZodSchema = z.object({
   tax: z.object({
@@ -89,13 +84,21 @@ export const countryDataResponseSchema = {
 // ============================================================================
 
 export const CurrencyRatesZodSchema = z.object({
-  base: z.string().min(1),
-  rates: z.array(
-    z.object({
-      currency: z.string().min(1),
-      rate: z.number().positive()
-    })
-  ).min(1),
+  base: z
+    .string()
+    .transform(b => b.trim().toUpperCase())
+    .pipe(z.literal('USD')),
+  rates: z
+    .array(
+      z.object({
+        currency: z
+          .string()
+          .transform(c => c.trim().toUpperCase())
+          .pipe(z.string().regex(/^[A-Z]{3}$/, 'Currency code must be a 3-letter uppercase ISO code')),
+        rate: z.number().positive('Exchange rate must be positive')
+      })
+    )
+    .min(1),
   lastUpdated: z.string().min(1)
 });
 
@@ -136,17 +139,67 @@ export function formatZodError(error: z.ZodError): string {
 }
 
 /**
- * Robust JSON extractor that strips markdown fences, locates outer braces/brackets, and parses with Zod schema.
+ * Scans rawText to find the first complete JSON object ({...}) or array ([...])
+ * taking into account string literals and escape characters.
+ */
+export function extractFirstJSONString(rawText: string): string | null {
+  const startIdx = rawText.search(/[\{\[]/);
+  if (startIdx === -1) return null;
+
+  const stack: string[] = [];
+  let inString = false;
+  let isEscaped = false;
+
+  for (let i = startIdx; i < rawText.length; i++) {
+    const char = rawText[i];
+
+    if (inString) {
+      if (isEscaped) {
+        isEscaped = false;
+      } else if (char === '\\') {
+        isEscaped = true;
+      } else if (char === '"') {
+        inString = false;
+      }
+      continue;
+    }
+
+    if (char === '"') {
+      inString = true;
+      continue;
+    }
+
+    if (char === '{' || char === '[') {
+      stack.push(char);
+    } else if (char === '}' || char === ']') {
+      if (stack.length === 0) return null;
+      const last = stack.pop();
+      if ((char === '}' && last !== '{') || (char === ']' && last !== '[')) {
+        return null;
+      }
+
+      if (stack.length === 0) {
+        return rawText.slice(startIdx, i + 1);
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Robust JSON extractor that strips markdown fences, uses depth-balanced scanning to extract outer JSON,
+ * and validates with Zod schema.
  */
 export function extractAndParseJSON<T>(rawText: string, schema: z.ZodType<T>): T {
   let cleaned = rawText.trim();
   // Strip markdown code fences (```json ... ``` or ``` ...)
   cleaned = cleaned.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
 
-  // Find outer JSON braces or brackets
-  const match = cleaned.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
-  if (match) {
-    cleaned = match[0];
+  // Find depth-balanced JSON payload
+  const extracted = extractFirstJSONString(cleaned);
+  if (extracted) {
+    cleaned = extracted;
   }
 
   let parsed: unknown;

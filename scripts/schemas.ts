@@ -121,3 +121,46 @@ export const currencyRatesResponseSchema = {
   },
   required: ['base', 'rates', 'lastUpdated']
 };
+
+// ============================================================================
+// PARSING & VALIDATION UTILITIES
+// ============================================================================
+
+/**
+ * Format Zod validation errors cleanly into path-level diagnostic strings for build logs
+ */
+export function formatZodError(error: z.ZodError): string {
+  return error.issues
+    .map(issue => `  - ${issue.path.join('.') || 'root'}: ${issue.message}`)
+    .join('\n');
+}
+
+/**
+ * Robust JSON extractor that strips markdown fences, locates outer braces/brackets, and parses with Zod schema.
+ */
+export function extractAndParseJSON<T>(rawText: string, schema: z.ZodType<T>): T {
+  let cleaned = rawText.trim();
+  // Strip markdown code fences (```json ... ``` or ``` ...)
+  cleaned = cleaned.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
+
+  // Find outer JSON braces or brackets
+  const match = cleaned.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
+  if (match) {
+    cleaned = match[0];
+  }
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(cleaned);
+  } catch (parseErr: any) {
+    throw new Error(`JSON parse failure: ${parseErr.message}\nRaw Output Snippet: "${rawText.slice(0, 150)}..."`);
+  }
+
+  const result = schema.safeParse(parsed);
+  if (!result.success) {
+    const formatted = formatZodError(result.error);
+    throw new Error(`Zod Schema Validation Failure:\n${formatted}`);
+  }
+
+  return result.data;
+}

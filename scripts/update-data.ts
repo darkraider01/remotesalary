@@ -3,12 +3,25 @@ import fs from 'fs/promises';
 import path from 'path';
 import { config } from 'dotenv';
 import {
+  Country,
   CountryData,
   CountryDataZodSchema,
   countryDataResponseSchema,
   CurrencyRatesZodSchema,
   currencyRatesResponseSchema
 } from './schemas';
+
+config();
+
+const geminiApiKey = process.env.GEMINI_API_KEY;
+const exchangeRateApiKey = process.env.EXCHANGE_RATE_API_KEY;
+
+if (!geminiApiKey) {
+  console.error('Error: GEMINI_API_KEY not found');
+  process.exit(1);
+}
+
+const genAI = new GoogleGenerativeAI(geminiApiKey);
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 

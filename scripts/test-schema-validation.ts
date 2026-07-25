@@ -1,4 +1,4 @@
-import { CountryDataZodSchema } from './update-data';
+import { CountryDataZodSchema, CurrencyRatesZodSchema } from './schemas';
 
 function runTests() {
   console.log('Running Zod schema validation unit tests...');
@@ -69,6 +69,41 @@ function runTests() {
     process.exit(1);
   } catch (err: any) {
     console.log('✓ Test 4 Passed: Correctly caught missing required fields');
+  }
+
+  // Test 5: Valid currency rates
+  const validCurrencyData = {
+    base: 'USD',
+    rates: [
+      { currency: 'EUR', rate: 0.92 },
+      { currency: 'GBP', rate: 0.78 }
+    ],
+    lastUpdated: '2026-07-25'
+  };
+
+  try {
+    const result = CurrencyRatesZodSchema.parse(validCurrencyData);
+    console.log('✓ Test 5 Passed: Valid currency rates parsed successfully:', result.rates.length, 'currencies');
+  } catch (err: any) {
+    console.error('✗ Test 5 Failed:', err.message);
+    process.exit(1);
+  }
+
+  // Test 6: Invalid currency rate (non-positive)
+  const invalidCurrencyData = {
+    base: 'USD',
+    rates: [
+      { currency: 'EUR', rate: -0.92 }
+    ],
+    lastUpdated: '2026-07-25'
+  };
+
+  try {
+    CurrencyRatesZodSchema.parse(invalidCurrencyData);
+    console.error('✗ Test 6 Failed: Should have rejected negative exchange rate');
+    process.exit(1);
+  } catch (err: any) {
+    console.log('✓ Test 6 Passed: Correctly caught negative exchange rate');
   }
 
   console.log('\n✓ All Zod schema unit tests passed successfully!');

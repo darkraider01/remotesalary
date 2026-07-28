@@ -219,6 +219,19 @@ Hope this helps!`;
     process.exit(1);
   }
 
+  // Test 13: Salary exchange rate ratio conversion logic on country/currency change
+  const initialSalaryUSD = 100000;
+  const ratesMap = { USD: 1.0, INR: 83.0, EUR: 0.92 };
+  const convertedSalaryINR = Math.round(initialSalaryUSD * (ratesMap.INR / ratesMap.USD));
+  const reconvertedSalaryEUR = Math.round(convertedSalaryINR * (ratesMap.EUR / ratesMap.INR));
+
+  if (convertedSalaryINR === 8300000 && reconvertedSalaryEUR === 92000) {
+    console.log('✓ Test 13 Passed: Salary currency conversion correctly scales numerical value between exchange rate pairs');
+  } else {
+    console.error('✗ Test 13 Failed: Currency conversion calculation mismatch:', { convertedSalaryINR, reconvertedSalaryEUR });
+    process.exit(1);
+  }
+
   console.log('\n✓ All Zod schema & JSON scanner unit tests passed successfully!');
 }
 

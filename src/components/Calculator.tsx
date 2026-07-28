@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   Country,
   TaxDataMap,
@@ -44,13 +44,36 @@ export function Calculator({
   const [cityTier, setCityTier] = useState<CityTier>('tier1');
   const [lifestyle, setLifestyle] = useState<Lifestyle>('balanced');
 
-  // Update currency when country changes
-  useEffect(() => {
-    const country = countries.find((c) => c.code === countryCode);
-    if (country) {
-      setCurrency(country.currency);
+  // Convert salary when target country changes
+  const handleCountryChange = (newCountryCode: string) => {
+    if (newCountryCode === countryCode) return;
+    const newCountry = countries.find((c) => c.code === newCountryCode);
+    if (newCountry) {
+      const targetCurrency = newCountry.currency;
+      if (targetCurrency !== currency && salary > 0 && currencyRates?.rates) {
+        const oldRate = currencyRates.rates[currency] ?? 1;
+        const newRate = currencyRates.rates[targetCurrency] ?? 1;
+        if (oldRate > 0 && newRate > 0) {
+          setSalary(Math.round(salary * (newRate / oldRate)));
+        }
+      }
+      setCurrency(targetCurrency);
+      setCountryCode(newCountryCode);
     }
-  }, [countryCode, countries]);
+  };
+
+  // Convert salary when currency changes directly
+  const handleCurrencyChange = (newCurrency: string) => {
+    if (newCurrency === currency) return;
+    if (salary > 0 && currencyRates?.rates) {
+      const oldRate = currencyRates.rates[currency] ?? 1;
+      const newRate = currencyRates.rates[newCurrency] ?? 1;
+      if (oldRate > 0 && newRate > 0) {
+        setSalary(Math.round(salary * (newRate / oldRate)));
+      }
+    }
+    setCurrency(newCurrency);
+  };
 
   // Build inputs object
   const inputs: CalculatorInputs = {
@@ -88,7 +111,7 @@ export function Calculator({
               period={salaryPeriod}
               onPeriodChange={setSalaryPeriod}
               currency={currency}
-              onCurrencyChange={setCurrency}
+              onCurrencyChange={handleCurrencyChange}
               countries={countries}
             />
 
@@ -96,7 +119,7 @@ export function Calculator({
 
             <CountrySelector
               selectedCountry={countryCode}
-              onCountryChange={setCountryCode}
+              onCountryChange={handleCountryChange}
               countries={countries}
             />
 

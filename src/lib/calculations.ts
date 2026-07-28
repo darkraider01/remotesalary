@@ -8,6 +8,7 @@ import {
   LIFESTYLE_MULTIPLIERS,
   LIVING_BASELINE_USD,
   RENT_BASELINE_USD,
+  RentIndex,
   RentIndexMap,
   TaxDataMap,
 } from '@/types';

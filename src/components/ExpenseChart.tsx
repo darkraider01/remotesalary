@@ -110,30 +110,31 @@ export function ExpenseChart({ results }: ExpenseChartProps) {
                   className={`bg-gradient-to-r ${bar.color} transition-all duration-500 relative group`}
                   style={{ width: `${Math.max(bar.percentage, 0) * stackScale}%` }}
                 >
-              {bar.percentage > 10 && (
-                <span className="absolute inset-0 flex items-center justify-center text-xs font-medium text-white/90">
-                  {Math.round(bar.percentage)}%
-                </span>
-              )}
-              {/* Tooltip */}
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 
-                            bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100
-                            transition-opacity pointer-events-none whitespace-nowrap z-10">
-                {bar.label}: {formatCurrency(bar.value)}
-              </div>
+                  {bar.percentage > 10 && (
+                    <span className="absolute inset-0 flex items-center justify-center text-xs font-medium text-white/90">
+                      {Math.round(bar.percentage)}%
+                    </span>
+                  )}
+                  {/* Tooltip */}
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 
+                                bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100
+                                transition-opacity pointer-events-none whitespace-nowrap z-10">
+                    {bar.label}: {formatCurrency(bar.value)}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="flex justify-between mt-2">
-          {bars.map((bar) => (
-            <div key={bar.label} className="flex items-center gap-1.5">
-              <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${bar.color}`} />
-              <span className="text-xs text-slate-500">{bar.label}</span>
+            <div className="flex justify-between mt-2">
+              {bars.map((bar) => (
+                <div key={bar.label} className="flex items-center gap-1.5">
+                  <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${bar.color}`} />
+                  <span className="text-xs text-slate-500">{bar.label}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      );
-    })()}
+          </div>
+        );
+      })()}
 
       {/* Total */}
       <div className="mt-6 pt-4 border-t border-slate-700/30 flex items-center justify-between">

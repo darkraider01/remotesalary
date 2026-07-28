@@ -4,7 +4,7 @@ import {
   extractAndParseJSON,
   extractFirstJSONString
 } from './schemas';
-import { getRentIndexForTier, calculateResults } from '../src/lib/calculations';
+import { getRentIndexForTier, calculateResults, getAdjustedTaxRate, calculateTax } from '../src/lib/calculations';
 
 function runTests() {
   console.log('Running Zod schema validation & JSON extraction unit tests...');
@@ -203,6 +203,19 @@ Hope this helps!`;
     console.log('✓ Test 11 Passed: calculateResults handled missing/corrupted data without propagating NaN or Infinity');
   } else {
     console.error('✗ Test 11 Failed: Calculation results contained NaN or Infinity:', results);
+    process.exit(1);
+  }
+
+  // Test 12: getAdjustedTaxRate and calculateTax progressive scaling for low/baseline/high earners
+  const baseRate = 0.28; // 28% base rate for $85k USD earner
+  const lowRate = getAdjustedTaxRate(baseRate, 20000); // < $42.5k -> 50% of baseRate = 0.14
+  const baseTierRate = getAdjustedTaxRate(baseRate, 85000); // $85k -> 100% of baseRate = 0.28
+  const highRate = getAdjustedTaxRate(baseRate, 500000); // > $170k -> 1.3x of baseRate = 0.364
+
+  if (lowRate === 0.14 && baseTierRate === 0.28 && Math.abs(highRate - 0.364) < 0.001) {
+    console.log('✓ Test 12 Passed: Progressive tax adjustment correctly scaled tax rates for low ($20k -> 14%), base ($85k -> 28%), and high ($500k -> 36.4%) earners');
+  } else {
+    console.error('✗ Test 12 Failed: Tax rate scaling output mismatch:', { lowRate, baseTierRate, highRate });
     process.exit(1);
   }
 

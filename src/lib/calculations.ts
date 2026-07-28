@@ -34,10 +34,33 @@ export function normalizeToAnnualUSD(
 }
 
 /**
- * Calculate effective tax amount
+ * Dynamically adjust effective tax rate based on annual salary relative to $85,000 USD baseline
+ */
+export function getAdjustedTaxRate(baseRate: number, annualSalaryUSD: number): number {
+  if (annualSalaryUSD <= 0 || baseRate <= 0) return 0;
+  const ratio = annualSalaryUSD / 85000;
+
+  if (ratio < 0.5) {
+    return baseRate * 0.5;
+  }
+  if (ratio < 1.0) {
+    const scale = 0.5 + (ratio - 0.5) * 1.0; // Interpolate 0.5x to 1.0x
+    return baseRate * scale;
+  }
+  if (ratio <= 2.0) {
+    const scale = 1.0 + (ratio - 1.0) * 0.3; // Interpolate 1.0x to 1.3x
+    return Math.min(baseRate * scale, 0.50);
+  }
+  return Math.min(baseRate * 1.3, 0.50);
+}
+
+/**
+ * Calculate effective tax amount with progressive rate adjustment
  */
 export function calculateTax(annualSalary: number, effectiveRate: number): number {
-  return annualSalary * effectiveRate;
+  if (annualSalary <= 0 || effectiveRate <= 0) return 0;
+  const adjustedRate = getAdjustedTaxRate(effectiveRate, annualSalary);
+  return annualSalary * adjustedRate;
 }
 
 /**

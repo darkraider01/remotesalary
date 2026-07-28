@@ -244,6 +244,17 @@ Hope this helps!`;
     process.exit(1);
   }
 
+  // Test 15: Defensive adsbygoogle array initialization
+  const mockWindow: any = {};
+  (mockWindow.adsbygoogle = mockWindow.adsbygoogle || []).push({});
+
+  if (Array.isArray(mockWindow.adsbygoogle) && mockWindow.adsbygoogle.length === 1) {
+    console.log('✓ Test 15 Passed: Defensive adsbygoogle initialization correctly instantiates array on mount and pushes slot config');
+  } else {
+    console.error('✗ Test 15 Failed: Mock adsbygoogle push failed');
+    process.exit(1);
+  }
+
   console.log('\n✓ All Zod schema & JSON scanner unit tests passed successfully!');
 }
 

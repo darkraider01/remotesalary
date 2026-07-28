@@ -17,8 +17,8 @@ export function AdPlacement({ slot, adSlotId }: AdPlacementProps) {
   const adRef = useRef<HTMLModElement>(null);
 
   useEffect(() => {
-    // Only try to load ad if we have a slot ID and the script is loaded
-    if (adSlotId && adRef.current && window.adsbygoogle) {
+    // Only try to load ad if we have a slot ID and container ref
+    if (adSlotId && adRef.current) {
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch (e) {

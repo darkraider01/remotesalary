@@ -75,6 +75,19 @@ export function Calculator({
     setCurrency(newCurrency);
   };
 
+  // Rescale salary when period (Yearly/Monthly) changes
+  const handlePeriodChange = (newPeriod: SalaryPeriod) => {
+    if (newPeriod === salaryPeriod) return;
+    if (salary > 0) {
+      if (newPeriod === 'monthly') {
+        setSalary(Math.round(salary / 12));
+      } else if (newPeriod === 'yearly') {
+        setSalary(Math.round(salary * 12));
+      }
+    }
+    setSalaryPeriod(newPeriod);
+  };
+
   // Build inputs object
   const inputs: CalculatorInputs = {
     salary,
@@ -109,7 +122,7 @@ export function Calculator({
               salary={salary}
               onSalaryChange={setSalary}
               period={salaryPeriod}
-              onPeriodChange={setSalaryPeriod}
+              onPeriodChange={handlePeriodChange}
               currency={currency}
               onCurrencyChange={handleCurrencyChange}
               countries={countries}

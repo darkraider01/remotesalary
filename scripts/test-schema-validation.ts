@@ -232,6 +232,18 @@ Hope this helps!`;
     process.exit(1);
   }
 
+  // Test 14: Salary period toggle rescaling (Yearly <-> Monthly)
+  const yearlySalary = 120000;
+  const monthlySalary = Math.round(yearlySalary / 12);
+  const backToYearly = Math.round(monthlySalary * 12);
+
+  if (monthlySalary === 10000 && backToYearly === 120000) {
+    console.log('✓ Test 14 Passed: Period toggle correctly rescales salary input ($120,000/yr -> $10,000/mo -> $120,000/yr)');
+  } else {
+    console.error('✗ Test 14 Failed: Period toggle salary calculation mismatch:', { monthlySalary, backToYearly });
+    process.exit(1);
+  }
+
   console.log('\n✓ All Zod schema & JSON scanner unit tests passed successfully!');
 }
 

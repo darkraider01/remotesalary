@@ -96,15 +96,20 @@ export function ExpenseChart({ results }: ExpenseChartProps) {
       </div>
 
       {/* Stacked Visualization */}
-      <div className="mt-8 pt-6 border-t border-slate-700/30">
-        <p className="text-sm text-slate-400 mb-3">Income Distribution</p>
-        <div className="h-8 rounded-lg overflow-hidden flex">
-          {bars.map((bar, index) => (
-            <div
-              key={bar.label}
-              className={`bg-gradient-to-r ${bar.color} transition-all duration-500 relative group`}
-              style={{ width: `${Math.max(bar.percentage, 0)}%` }}
-            >
+      {(() => {
+        const totalBarPercentage = bars.reduce((sum, b) => sum + Math.max(0, b.percentage), 0);
+        const stackScale = totalBarPercentage > 100 ? 100 / totalBarPercentage : 1;
+
+        return (
+          <div className="mt-8 pt-6 border-t border-slate-700/30">
+            <p className="text-sm text-slate-400 mb-3">Income Distribution</p>
+            <div className="h-8 rounded-lg overflow-hidden flex">
+              {bars.map((bar) => (
+                <div
+                  key={bar.label}
+                  className={`bg-gradient-to-r ${bar.color} transition-all duration-500 relative group`}
+                  style={{ width: `${Math.max(bar.percentage, 0) * stackScale}%` }}
+                >
               {bar.percentage > 10 && (
                 <span className="absolute inset-0 flex items-center justify-center text-xs font-medium text-white/90">
                   {Math.round(bar.percentage)}%
@@ -127,7 +132,8 @@ export function ExpenseChart({ results }: ExpenseChartProps) {
             </div>
           ))}
         </div>
-      </div>
+      );
+    })()}
 
       {/* Total */}
       <div className="mt-6 pt-4 border-t border-slate-700/30 flex items-center justify-between">

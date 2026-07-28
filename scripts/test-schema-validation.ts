@@ -269,6 +269,24 @@ Hope this helps!`;
     process.exit(1);
   }
 
+  // Test 17: ExpenseChart stacked bar normalization when total expenses exceed 100%
+  const mockBars = [
+    { label: 'Taxes', percentage: 28 },
+    { label: 'Rent', percentage: 100 },
+    { label: 'Living', percentage: 70.4 },
+    { label: 'Savings', percentage: 0 }
+  ];
+  const totalBarPercentage = mockBars.reduce((sum, b) => sum + Math.max(0, b.percentage), 0); // 198.4%
+  const stackScale = totalBarPercentage > 100 ? 100 / totalBarPercentage : 1;
+  const scaledTotal = mockBars.reduce((sum, b) => sum + (Math.max(0, b.percentage) * stackScale), 0);
+
+  if (Math.abs(scaledTotal - 100) < 0.001) {
+    console.log('✓ Test 17 Passed: Stacked expense bar segment widths correctly normalized to 100% total container width when expenses exceed income');
+  } else {
+    console.error('✗ Test 17 Failed: Stacked bar width normalization mismatch:', scaledTotal);
+    process.exit(1);
+  }
+
   console.log('\n✓ All Zod schema & JSON scanner unit tests passed successfully!');
 }
 

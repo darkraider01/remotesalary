@@ -28,6 +28,29 @@ function getGenAI(): GoogleGenerativeAI {
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
+export async function withRetry<T>(
+  fn: () => Promise<T>,
+  maxRetries: number = 3,
+  initialDelayMs: number = 2000,
+  contextName: string = 'Operation'
+): Promise<T> {
+  let attempt = 0;
+  while (attempt < maxRetries) {
+    try {
+      return await fn();
+    } catch (error: any) {
+      attempt++;
+      if (attempt >= maxRetries) {
+        throw error;
+      }
+      const backoffMs = initialDelayMs * Math.pow(2, attempt - 1) + Math.random() * 1000;
+      console.warn(`  ⚠ ${contextName} failed (attempt ${attempt}/${maxRetries}): ${error.message}. Retrying in ${Math.round(backoffMs)}ms...`);
+      await delay(backoffMs);
+    }
+  }
+  throw new Error(`${contextName} failed after ${maxRetries} attempts`);
+}
+
 async function main() {
   console.log('Starting data update...\n');
 
@@ -123,7 +146,7 @@ async function main() {
   }
 
   await fs.writeFile(currencyPath, JSON.stringify(currencyData, null, 2));
-  await fs.writeFile(rentPath, JSON.stringify(rentPath, null, 2));
+  await fs.writeFile(rentPath, JSON.stringify(rentData, null, 2));
   await fs.writeFile(colPath, JSON.stringify(colData, null, 2));
   await fs.writeFile(taxPath, JSON.stringify(taxData, null, 2));
 
@@ -173,7 +196,12 @@ async function fetchCurrencyRates(currencies: string[]) {
 
   const prompt = `Provide current exchange rates for: ${currencies.join(', ')} relative to base USD.`;
 
-  const result = await model.generateContent(prompt);
+  const result = await withRetry(
+    () => model.generateContent(prompt),
+    3,
+    2000,
+    'Gemini Currency Rates API'
+  );
   const rawText = result.response.text();
   const validated = extractAndParseJSON(rawText, CurrencyRatesZodSchema);
 
@@ -201,7 +229,12 @@ export async function fetchCountryData(country: Country): Promise<CountryData> {
 
   const prompt = `For ${country.name} (capital: ${country.capital}), calculate current tax rate for an $85k USD earner, rent indices where baseline 100=$1000/month (for capital, tier1, and tier2 cities), and cost of living index where baseline 100=$800/month excluding rent.`;
 
-  const result = await model.generateContent(prompt);
+  const result = await withRetry(
+    () => model.generateContent(prompt),
+    3,
+    2000,
+    `Gemini Country Data API (${country.code})`
+  );
   const rawText = result.response.text();
   return extractAndParseJSON(rawText, CountryDataZodSchema);
 }

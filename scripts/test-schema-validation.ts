@@ -5,6 +5,7 @@ import {
   extractFirstJSONString
 } from './schemas';
 import { getRentIndexForTier, calculateResults, getAdjustedTaxRate, calculateTax } from '../src/lib/calculations';
+import { withRetry } from './update-data';
 
 function runTests() {
   console.log('Running Zod schema validation & JSON extraction unit tests...');
@@ -286,6 +287,31 @@ Hope this helps!`;
     console.error('✗ Test 17 Failed: Stacked bar width normalization mismatch:', scaledTotal);
     process.exit(1);
   }
+
+  // Test 18: withRetry helper retries transient failures and returns successfully
+  (async () => {
+    let callCount = 0;
+    const mockTask = async () => {
+      callCount++;
+      if (callCount < 2) {
+        throw new Error('429 Rate Limit Exceeded');
+      }
+      return 'SUCCESS';
+    };
+
+    try {
+      const result = await withRetry(mockTask, 3, 10, 'Test Retry Task');
+      if (result === 'SUCCESS' && callCount === 2) {
+        console.log('✓ Test 18 Passed: withRetry successfully retried transient failure and returned result on attempt 2');
+      } else {
+        console.error('✗ Test 18 Failed: withRetry output mismatch:', { result, callCount });
+        process.exit(1);
+      }
+    } catch (err: any) {
+      console.error('✗ Test 18 Failed with error:', err.message);
+      process.exit(1);
+    }
+  })();
 
   console.log('\n✓ All Zod schema & JSON scanner unit tests passed successfully!');
 }

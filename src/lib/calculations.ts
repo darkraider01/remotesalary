@@ -88,13 +88,40 @@ export function calculateSavingsScore(
 }
 
 /**
- * Get rent index for a specific city tier
+ * Helper to check if a value is a valid positive number
+ */
+function isValidNumber(val: unknown): val is number {
+  return typeof val === 'number' && !isNaN(val) && isFinite(val) && val > 0;
+}
+
+/**
+ * Get rent index for a specific city tier with robust fallback cascade
  */
 export function getRentIndexForTier(
-  rentData: { capital: number; tier1: number; tier2: number },
+  rentData: RentIndex | Record<string, number> | undefined | null,
   cityTier: CityTier
 ): number {
-  return rentData[cityTier];
+  if (!rentData) return 100;
+
+  // 1. Direct lookup for requested tier
+  const directVal = rentData[cityTier];
+  if (isValidNumber(directVal)) return directVal;
+
+  // 2. Try normalized tier key if there are space/hyphen key variants
+  const normalizedKey = cityTier.replace(/\s|-/g, '').toLowerCase();
+  const normalizedVal = rentData[normalizedKey];
+  if (isValidNumber(normalizedVal)) return normalizedVal;
+
+  // 3. Fallback to tier1
+  const tier1Val = rentData['tier1'];
+  if (isValidNumber(tier1Val)) return tier1Val;
+
+  // 4. Fallback to capital
+  const capitalVal = rentData['capital'];
+  if (isValidNumber(capitalVal)) return capitalVal;
+
+  // 5. Default baseline
+  return 100;
 }
 
 /**
@@ -110,22 +137,25 @@ export function calculateResults(
   const { salary, salaryPeriod, currency, countryCode, cityTier, lifestyle } = inputs;
 
   // Normalize salary to annual USD
-  const annualSalaryUSD = normalizeToAnnualUSD(salary, salaryPeriod, currency, currencyRates);
+  const rawAnnualSalaryUSD = normalizeToAnnualUSD(salary, salaryPeriod, currency, currencyRates);
+  const annualSalaryUSD = isValidNumber(rawAnnualSalaryUSD) ? rawAnnualSalaryUSD : 0;
 
   // Get country-specific data
-  const effectiveTaxRate = taxData[countryCode]?.effectiveRate ?? 0;
+  const rawTaxRate = taxData[countryCode]?.effectiveRate;
+  const effectiveTaxRate = typeof rawTaxRate === 'number' && !isNaN(rawTaxRate) && isFinite(rawTaxRate) ? rawTaxRate : 0;
   const rentData = rentIndexData[countryCode] ?? { capital: 100, tier1: 80, tier2: 60 };
   const colData = costOfLivingData[countryCode] ?? { index: 100 };
 
   // Calculate tax
   const annualTax = calculateTax(annualSalaryUSD, effectiveTaxRate);
 
-  // Calculate rent
+  // Calculate rent with safe index fallback
   const rentIndex = getRentIndexForTier(rentData, cityTier);
   const monthlyRent = calculateMonthlyRent(rentIndex);
 
-  // Calculate living expenses
-  const monthlyLiving = calculateMonthlyLiving(colData.index, lifestyle);
+  // Calculate living expenses with safe col index fallback
+  const colIndex = isValidNumber(colData?.index) ? colData.index : 100;
+  const monthlyLiving = calculateMonthlyLiving(colIndex, lifestyle);
 
   // Calculate annual expenses
   const annualExpenses = (monthlyRent + monthlyLiving) * 12;
@@ -141,11 +171,18 @@ export function calculateResults(
   // Calculate savings score
   const savingsScore = calculateSavingsScore(disposableIncome, annualSalaryUSD);
 
+  // Helper for safe percentage calculation
+  const safePercent = (numerator: number, denominator: number) => {
+    if (denominator <= 0 || !isFinite(numerator) || isNaN(numerator)) return 0;
+    const pct = (numerator / denominator) * 100;
+    return isFinite(pct) && !isNaN(pct) ? pct : 0;
+  };
+
   // Calculate percentages for breakdown
-  const taxPercentage = annualSalaryUSD > 0 ? (annualTax / annualSalaryUSD) * 100 : 0;
-  const rentPercentage = annualSalaryUSD > 0 ? ((monthlyRent * 12) / annualSalaryUSD) * 100 : 0;
-  const livingPercentage = annualSalaryUSD > 0 ? ((monthlyLiving * 12) / annualSalaryUSD) * 100 : 0;
-  const savingsPercentage = annualSalaryUSD > 0 ? (disposableIncome / annualSalaryUSD) * 100 : 0;
+  const taxPercentage = safePercent(annualTax, annualSalaryUSD);
+  const rentPercentage = safePercent(monthlyRent * 12, annualSalaryUSD);
+  const livingPercentage = safePercent(monthlyLiving * 12, annualSalaryUSD);
+  const savingsPercentage = safePercent(disposableIncome, annualSalaryUSD);
 
   return {
     annualSalaryUSD,

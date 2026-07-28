@@ -4,6 +4,7 @@ import {
   extractAndParseJSON,
   extractFirstJSONString
 } from './schemas';
+import { getRentIndexForTier, calculateResults } from '../src/lib/calculations';
 
 function runTests() {
   console.log('Running Zod schema validation & JSON extraction unit tests...');
@@ -164,6 +165,45 @@ Hope this helps!`;
       console.error('✗ Test 9 Failed with unexpected error structure:', err.message);
       process.exit(1);
     }
+  }
+
+  // Test 10: getRentIndexForTier fallback cascade on missing tier2 / empty / undefined rent data
+  const partialRentData = { capital: 220, tier1: 150 }; // missing tier2
+  const rentIndexTier2Fallback = getRentIndexForTier(partialRentData as any, 'tier2');
+  const rentIndexEmptyFallback = getRentIndexForTier({} as any, 'tier2');
+  const rentIndexNullFallback = getRentIndexForTier(null, 'tier2');
+
+  if (rentIndexTier2Fallback === 150 && rentIndexEmptyFallback === 100 && rentIndexNullFallback === 100) {
+    console.log('✓ Test 10 Passed: getRentIndexForTier correctly fell back through tier1 -> capital -> 100 baseline');
+  } else {
+    console.error('✗ Test 10 Failed: Fallback values mismatch:', { rentIndexTier2Fallback, rentIndexEmptyFallback, rentIndexNullFallback });
+    process.exit(1);
+  }
+
+  // Test 11: calculateResults with missing/corrupted data ensures no output fields contain NaN or Infinity
+  const mockInputs = {
+    salary: 85000,
+    salaryPeriod: 'yearly' as const,
+    currency: 'USD',
+    countryCode: 'US',
+    cityTier: 'tier2' as const,
+    lifestyle: 'balanced' as const
+  };
+
+  const results = calculateResults(
+    mockInputs,
+    {}, // empty tax map
+    { US: { capital: 150 } }, // rent map missing tier2
+    {}, // empty COL map
+    { base: 'USD', rates: { USD: 1 }, lastUpdated: '2026-07-25' }
+  );
+
+  const hasNaN = Object.values(results).some(val => typeof val === 'number' && (isNaN(val) || !isFinite(val)));
+  if (!hasNaN) {
+    console.log('✓ Test 11 Passed: calculateResults handled missing/corrupted data without propagating NaN or Infinity');
+  } else {
+    console.error('✗ Test 11 Failed: Calculation results contained NaN or Infinity:', results);
+    process.exit(1);
   }
 
   console.log('\n✓ All Zod schema & JSON scanner unit tests passed successfully!');

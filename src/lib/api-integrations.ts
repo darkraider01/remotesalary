@@ -291,7 +291,7 @@ export async function fetchRentWithFallback(
     }
   });
   
-  const prompt = `Provide monthly rent indices for ${country} (capital: ${city}) as of ${new Date().toISOString().split('T')[0]} for typical 1-bedroom apartments. Baseline: 100 = $1,000 USD/month.`;
+  const prompt = `Provide monthly rent indices for ${country} (capital: ${city}) as of ${new Date().toISOString().split('T')[0]} for typical 1-bedroom apartments using JSON object keys "capital", "tier1", and "tier2". Baseline: 100 = $1,000 USD/month.`;
 
   const result = await model.generateContent(prompt);
   return extractAndParseJSON(result.response.text(), NumbeoRentZodSchema);

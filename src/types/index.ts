@@ -17,9 +17,10 @@ export type TaxDataMap = Record<string, TaxData>;
 
 // Rent index per city tier
 export interface RentIndex {
-  capital: number;
-  tier1: number;
-  tier2: number;
+  capital?: number;
+  tier1?: number;
+  tier2?: number;
+  [key: string]: number | undefined;
 }
 
 export type RentIndexMap = Record<string, RentIndex>;

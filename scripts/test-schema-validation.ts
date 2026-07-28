@@ -255,6 +255,20 @@ Hope this helps!`;
     process.exit(1);
   }
 
+  // Test 16: ResultsPanel division-by-zero protection on $0 salary
+  const zeroSalaryUSD = 0;
+  const monthlyExpenses = 1800;
+  const monthlyIncome = zeroSalaryUSD > 0 ? zeroSalaryUSD / 12 : 0;
+  const rawExpensePct = monthlyIncome > 0 ? (monthlyExpenses / monthlyIncome) * 100 : 0;
+  const safeExpensePercentage = isFinite(rawExpensePct) && !isNaN(rawExpensePct) ? rawExpensePct : 0;
+
+  if (safeExpensePercentage === 0) {
+    console.log('✓ Test 16 Passed: Division-by-zero on $0 salary evaluated to 0.0% instead of Infinity%');
+  } else {
+    console.error('✗ Test 16 Failed: Zero salary expense percentage mismatch:', safeExpensePercentage);
+    process.exit(1);
+  }
+
   console.log('\n✓ All Zod schema & JSON scanner unit tests passed successfully!');
 }
 

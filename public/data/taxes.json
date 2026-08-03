@@ -1,62 +1,62 @@
 {
   "US": {
-    "effectiveRate": 0.28,
-    "description": "Income tax + SS"
+    "effectiveRate": 0.3,
+    "description": "Includes Federal Income, FICA (Social Security & Medicare), New York State Income, and New York City Income taxes for a single $85k earner."
   },
   "IN": {
-    "effectiveRate": 0.28,
-    "description": "Income tax + SS"
+    "effectiveRate": 0.27,
+    "description": "Effective income tax rate includes central government income tax slabs and a 4% health and education cess. Tax rates vary based on income slab and regime chosen (old vs. new)."
   },
   "SG": {
-    "effectiveRate": 0.19,
-    "description": "Income tax + SS"
+    "effectiveRate": 0.064,
+    "description": "Effective income tax rate includes progressive federal income tax, no capital gains tax."
   },
   "CH": {
-    "effectiveRate": 0.28,
-    "description": "Effective Income Tax + SS"
+    "effectiveRate": 0.22,
+    "description": "Includes federal, cantonal, municipal income taxes, and social security contributions; varies significantly by canton of residence and municipality."
   },
   "NL": {
-    "effectiveRate": 0.28,
-    "description": "Income tax + SS"
+    "effectiveRate": 0.43,
+    "description": "Effective rate for income tax and national insurance contributions for an $85k USD earner."
   },
   "GB": {
-    "effectiveRate": 0.28,
-    "description": "Income tax + NI"
+    "effectiveRate": 0.262,
+    "description": "Effective rate includes income tax and National Insurance contributions for an $85k USD equivalent earner."
   },
   "CA": {
-    "effectiveRate": 0.29,
-    "description": "Income tax + SS"
+    "effectiveRate": 0.26,
+    "description": "Includes federal and provincial income taxes, Canada Pension Plan (CPP), and Employment Insurance (EI) contributions for an $85k USD earner in Ontario."
   },
   "AE": {
     "effectiveRate": 0,
-    "description": "No personal income tax"
+    "description": "No personal income tax for most residents; individuals generally pay 0% on their income."
   },
   "NO": {
-    "effectiveRate": 0.36,
-    "description": "Effective income tax + SS"
+    "effectiveRate": 0.29,
+    "description": "Includes national income tax (with progressive step tax), municipal tax, and social security contributions."
   },
   "IE": {
-    "effectiveRate": 0.34,
-    "description": "Income tax + SS"
+    "effectiveRate": 0.318,
+    "description": "Effective tax rate includes income tax, Universal Social Charge (USC), and Pay Related Social Insurance (PRSI) for a single earner."
   },
   "LU": {
-    "effectiveRate": 0.28,
-    "description": "Income tax + SS"
+    "effectiveRate": 0.254,
+    "description": "Effective rate includes national income tax (progressive), social security contributions (health, pension, long-term care), and dependency insurance."
   },
   "AU": {
-    "effectiveRate": 0.23,
-    "description": "Effective Income Tax + Medicare Levy"
+    "effectiveRate": 0.273,
+    "description": "Includes federal income tax and Medicare levy for an $85k USD (~$127.5k AUD) earner."
   },
   "QA": {
     "effectiveRate": 0,
-    "description": "No personal income tax"
+    "description": "No personal income tax on salaries and wages for residents."
   },
   "BN": {
     "effectiveRate": 0,
-    "description": "No personal income tax"
+    "description": "Brunei Darussalam has no personal income tax."
   },
   "MO": {
-    "effectiveRate": 0.08,
-    "description": "Professional Tax"
+    "effectiveRate": 0.053,
+    "description": "Macao's professional tax is highly progressive with a substantial tax-free allowance and low top rates, resulting in a very low effective income tax. No sales tax or VAT."
   }
 }

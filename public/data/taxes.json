@@ -1,62 +1,62 @@
 {
   "US": {
-    "effectiveRate": 0.3,
-    "description": "Includes Federal Income, FICA (Social Security & Medicare), New York State Income, and New York City Income taxes for a single $85k earner."
+    "effectiveRate": 0.25,
+    "description": "Effective rate including federal income tax, FICA (Social Security and Medicare), and an estimated average state income tax."
   },
   "IN": {
     "effectiveRate": 0.27,
-    "description": "Effective income tax rate includes central government income tax slabs and a 4% health and education cess. Tax rates vary based on income slab and regime chosen (old vs. new)."
+    "description": "Includes central income tax and 4% health and education cess for an individual under the new tax regime, assuming no other deductions."
   },
   "SG": {
     "effectiveRate": 0.064,
-    "description": "Effective income tax rate includes progressive federal income tax, no capital gains tax."
+    "description": "Progressive individual income tax on gross earnings."
   },
   "CH": {
-    "effectiveRate": 0.22,
-    "description": "Includes federal, cantonal, municipal income taxes, and social security contributions; varies significantly by canton of residence and municipality."
+    "effectiveRate": 0.18,
+    "description": "Includes federal, cantonal, and municipal income taxes, plus mandatory social security contributions, varying by canton and municipality."
   },
   "NL": {
-    "effectiveRate": 0.43,
-    "description": "Effective rate for income tax and national insurance contributions for an $85k USD earner."
+    "effectiveRate": 0.33,
+    "description": "Effective tax rate includes income tax and national insurance contributions, accounting for general tax credits for a single earner."
   },
   "GB": {
-    "effectiveRate": 0.262,
-    "description": "Effective rate includes income tax and National Insurance contributions for an $85k USD equivalent earner."
+    "effectiveRate": 0.26,
+    "description": "Includes income tax and national insurance contributions for an $85k USD equivalent earner."
   },
   "CA": {
-    "effectiveRate": 0.26,
-    "description": "Includes federal and provincial income taxes, Canada Pension Plan (CPP), and Employment Insurance (EI) contributions for an $85k USD earner in Ontario."
+    "effectiveRate": 0.235,
+    "description": "Includes federal and provincial income tax, plus mandatory contributions for Canada Pension Plan (CPP) and Employment Insurance (EI)."
   },
   "AE": {
     "effectiveRate": 0,
-    "description": "No personal income tax for most residents; individuals generally pay 0% on their income."
+    "description": "No personal income tax for residents."
   },
   "NO": {
-    "effectiveRate": 0.29,
-    "description": "Includes national income tax (with progressive step tax), municipal tax, and social security contributions."
+    "effectiveRate": 0.3,
+    "description": "Includes national income tax, municipal tax, and social security contributions."
   },
   "IE": {
-    "effectiveRate": 0.318,
-    "description": "Effective tax rate includes income tax, Universal Social Charge (USC), and Pay Related Social Insurance (PRSI) for a single earner."
+    "effectiveRate": 0.324,
+    "description": "Includes income tax, Universal Social Charge (USC), and Pay Related Social Insurance (PRSI)."
   },
   "LU": {
-    "effectiveRate": 0.254,
-    "description": "Effective rate includes national income tax (progressive), social security contributions (health, pension, long-term care), and dependency insurance."
+    "effectiveRate": 0.285,
+    "description": "Effective tax rate includes national income tax and mandatory social security contributions for an $85k USD equivalent earner."
   },
   "AU": {
-    "effectiveRate": 0.273,
-    "description": "Includes federal income tax and Medicare levy for an $85k USD (~$127.5k AUD) earner."
+    "effectiveRate": 0.274,
+    "description": "Includes federal income tax and Medicare levy for an $85k USD equivalent earner in Australia."
   },
   "QA": {
     "effectiveRate": 0,
-    "description": "No personal income tax on salaries and wages for residents."
+    "description": "Qatar has no personal income tax for individuals."
   },
   "BN": {
     "effectiveRate": 0,
-    "description": "Brunei Darussalam has no personal income tax."
+    "description": "Brunei Darussalam does not impose personal income tax on its residents or foreign nationals."
   },
   "MO": {
-    "effectiveRate": 0.053,
-    "description": "Macao's professional tax is highly progressive with a substantial tax-free allowance and low top rates, resulting in a very low effective income tax. No sales tax or VAT."
+    "effectiveRate": 0.086,
+    "description": "Effective tax rate includes progressive complementary tax with a high exemption threshold. Macao has a low tax regime with no VAT or sales tax."
   }
 }

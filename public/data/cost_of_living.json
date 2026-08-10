@@ -1,62 +1,62 @@
 {
   "US": {
-    "index": 125,
-    "description": "Cost of living index (excluding rent) covering groceries, transportation, utilities, dining, and personal care for a moderate lifestyle across the US."
+    "index": 150,
+    "description": "Higher than average, reflecting costs for groceries, transportation, healthcare, and utilities across various regions."
   },
   "IN": {
-    "index": 50,
-    "description": "Cost of living excluding rent is significantly lower than Western countries, covering groceries, local transportation, utilities, and mid-range dining. Values are based on major Indian cities."
+    "index": 45,
+    "description": "Covers essential groceries, local transportation, utilities, and a modest budget for dining and entertainment for a single person."
   },
   "SG": {
-    "index": 188,
-    "description": "Extremely high cost of living for daily expenses, groceries, and leisure."
+    "index": 80.6,
+    "description": "High costs for transport, groceries, and dining out, but public services are efficient."
   },
   "CH": {
-    "index": 220,
-    "description": "Very high cost for groceries, public transportation, dining out, and personal services across the country."
+    "index": 170,
+    "description": "Very high costs for groceries, public transport, personal services, and dining out. Healthcare is also expensive."
   },
   "NL": {
-    "index": 112.5,
-    "description": "Cost of living for a single person, excluding rent, covering groceries, transportation, utilities, and leisure."
+    "index": 115,
+    "description": "Reflects higher costs for groceries, public transportation, and leisure activities compared to the baseline."
   },
   "GB": {
-    "index": 125,
-    "description": "Includes groceries, transportation, utilities, and leisure activities, with higher costs in London and major cities."
+    "index": 175,
+    "description": "Covers groceries, public transport, utilities, and typical leisure activities for a single person, excluding rent."
   },
   "CA": {
-    "index": 105,
-    "description": "Includes groceries, local transportation, utilities, dining, and personal care items for a typical single person."
+    "index": 120,
+    "description": "Covers groceries, local transportation, utilities, basic entertainment, and personal care items."
   },
   "AE": {
-    "index": 220,
-    "description": "High cost of living, particularly for dining, entertainment, and imported goods. Utilities and transportation costs can be moderate depending on usage and location."
+    "index": 130,
+    "description": "High cost of living, with significant expenses for dining out, entertainment, and utilities, while groceries and transport (with own car) can be moderate."
   },
   "NO": {
-    "index": 165,
-    "description": "High costs for groceries, transportation, and dining out. Utilities are moderate."
+    "index": 200,
+    "description": "High costs for groceries, transportation, and dining out are typical across Norway."
   },
   "IE": {
-    "index": 187,
-    "description": "High cost of living, particularly for groceries, utilities, and transportation in urban centers."
+    "index": 177,
+    "description": "High costs across categories like groceries, utilities, and transport; dining out is particularly expensive."
   },
   "LU": {
-    "index": 149.2,
-    "description": "Luxembourg has a high cost of living, particularly for groceries, dining out, transportation, and personal services. Utilities are also notably expensive."
+    "index": 135,
+    "description": "Cost of living is high, particularly for groceries, dining, and personal services. Public transport is free, which helps offset some costs."
   },
   "AU": {
-    "index": 117,
-    "description": "Cost of living, excluding rent, is generally high, with groceries, utilities, transportation, and leisure activities being notably expensive across major Australian cities."
+    "index": 180,
+    "description": "Reflects typical monthly expenses for groceries, transport, utilities, and leisure in Australian cities, excluding rent."
   },
   "QA": {
-    "index": 137.5,
-    "description": "Moderate cost of living excluding rent, covering groceries, transportation, and utilities."
+    "index": 125,
+    "description": "Reflects costs for groceries, transportation, utilities, and leisure activities in Doha."
   },
   "BN": {
-    "index": 182,
-    "description": "Cost of living is moderately high, particularly for imported goods, but local services and certain staples are more affordable."
+    "index": 42,
+    "description": "Cost of living excluding rent is moderate to low, with affordable groceries, utilities, and local transportation. Dining out at local restaurants is inexpensive."
   },
   "MO": {
-    "index": 90,
-    "description": "High cost for daily necessities, groceries, and dining due to reliance on imports and a service-heavy economy."
+    "index": 109,
+    "description": "High cost for groceries, dining, and transportation, reflecting its status as a major tourist and business hub."
   }
 }

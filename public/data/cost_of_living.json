@@ -1,62 +1,62 @@
 {
   "US": {
-    "index": 200,
-    "description": "Covers typical expenses such as groceries, transportation, utilities, healthcare, and leisure activities across various US urban and suburban areas."
+    "index": 150,
+    "description": "Covers essential living costs such as groceries, utilities, transportation, healthcare, and leisure activities, excluding housing costs."
   },
   "IN": {
-    "index": 85,
-    "description": "Cost of living for essentials like groceries, local transportation, utilities, and mid-range dining. Generally affordable compared to Western countries, but can vary based on lifestyle choices and city."
+    "index": 44,
+    "description": "Covers groceries, local transportation, utilities, and basic leisure activities for a single person."
   },
   "SG": {
-    "index": 162.5,
-    "description": "Generally high, driven by imported goods, dining out, and car ownership costs. Public transport is efficient and relatively affordable."
+    "index": 137.5,
+    "description": "Generally high, especially for dining out, entertainment, and imported goods. Public transport is efficient and relatively affordable, and local groceries can help manage costs."
   },
   "CH": {
-    "index": 270,
-    "description": "Cost of living is extremely high across all categories including groceries, transportation, and dining out."
+    "index": 175,
+    "description": "Cost of living for goods and services is very high, particularly for groceries, dining out, and transportation."
   },
   "NL": {
-    "index": 128.25,
-    "description": "Covers expenses for groceries, public transportation, utilities, and general leisure activities for a single person."
+    "index": 125,
+    "description": "High costs for groceries, dining out, utilities, and public transportation."
   },
   "GB": {
-    "index": 165,
-    "description": "Cost of living, excluding rent, is moderately high for a single person, covering expenses such as groceries, utilities, transport, and leisure activities across UK cities."
+    "index": 120,
+    "description": "Groceries, transportation, utilities, and daily expenses."
   },
   "CA": {
     "index": 120,
-    "description": "High costs for groceries, transportation, and utilities, with slightly higher prices in major urban centers."
+    "description": "Covers expenses such as groceries, transportation, utilities, dining out, and other personal care and leisure activities, representing a moderate lifestyle."
   },
   "AE": {
-    "index": 130,
-    "description": "The cost of living excluding rent in the UAE, especially in major cities like Dubai and Abu Dhabi, is high due to expenses like groceries, dining, and transportation."
+    "index": 165,
+    "description": "Cost of living for groceries, transportation, utilities, and leisure in major cities like Dubai and Abu Dhabi."
   },
   "NO": {
-    "index": 170,
-    "description": "High cost of groceries, transportation, and leisure activities. Healthcare and education are subsidized."
+    "index": 141.5,
+    "description": "Norway has a high cost of living, with groceries, transportation, and dining out being notably expensive, consistent with other Nordic countries."
   },
   "IE": {
-    "index": 165,
-    "description": "High cost of groceries, utilities, and transportation, particularly in major cities like Dublin."
+    "index": 122,
+    "description": "Cost of living for groceries, utilities, transportation, and discretionary spending is high, especially in Dublin."
   },
   "LU": {
-    "index": 175,
-    "description": "High cost of living, particularly for groceries, transportation, and services, reflecting overall wealth and high wages."
+    "index": 160,
+    "description": "Overall high cost of living excluding rent, particularly for groceries, utilities, and dining out. Public transport is free throughout the country."
   },
   "AU": {
-    "index": 117,
-    "description": "Covers groceries, transportation, utilities, and personal care in major Australian cities."
+    "index": 137.5,
+    "description": "Covers groceries, utilities, public transport, and moderate entertainment/personal expenses for an individual."
   },
   "QA": {
-    "index": 140,
-    "description": "Cost of living is moderate, with groceries being reasonable but utilities and some services relatively high. Public transport is developing but private car ownership is common."
+    "index": 130,
+    "description": "Cost of living for groceries, dining, and transportation is moderate to high, with utilities generally affordable."
   },
   "BN": {
-    "index": 65,
-    "description": "The cost of living excluding rent in Brunei Darussalam is moderate. Local food, public transportation, and utilities are generally affordable. However, imported goods, electronics, and certain leisure activities can be relatively expensive compared to other Southeast Asian countries."
+    "index": 78,
+    "description": "Cost of living is moderate, benefiting from subsidized utilities and fuel, though prices for imported goods can be higher."
   },
   "MO": {
-    "index": 160,
-    "description": "High cost of living driven by imported goods and dining out, with more moderate prices for local services and transportation."
+    "index": 77.2,
+    "description": "High cost of living for daily expenses, groceries, and dining, with local food options being more affordable than imported goods."
   }
 }

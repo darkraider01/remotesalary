@@ -1,62 +1,62 @@
 {
   "US": {
     "effectiveRate": 0.245,
-    "description": "Includes federal income tax, FICA (Social Security and Medicare), and an estimated average for state and local income taxes."
+    "description": "Includes federal income tax, an estimated average for state income tax, and FICA (Social Security and Medicare) contributions."
   },
   "IN": {
-    "effectiveRate": 0.268,
-    "description": "Includes central income tax and health and education cess for a resident individual under the new tax regime."
+    "effectiveRate": 0.27,
+    "description": "Includes central income tax and a 4% health and education cess."
   },
   "SG": {
     "effectiveRate": 0.064,
-    "description": "Progressive income tax only; no capital gains or inheritance tax. Includes marginal rates from 0% to 11.5% for this income level."
+    "description": "Progressive personal income tax applied to an $85k USD earner (approx. S$115k), with no capital gains tax"
   },
   "CH": {
-    "effectiveRate": 0.18,
-    "description": "Effective rate includes federal, cantonal, and communal income taxes, plus mandatory social security contributions, varying by canton and municipality."
+    "effectiveRate": 0.22,
+    "description": "Effective rate includes federal, cantonal, and communal income taxes, plus mandatory social security contributions (AHV/IV/EO/ALV). Rates vary significantly by canton and commune; this is an approximate average."
   },
   "NL": {
-    "effectiveRate": 0.37,
-    "description": "Includes national income tax (Box 1) and mandatory social security contributions."
+    "effectiveRate": 0.33,
+    "description": "Effective income tax rate for an $85k USD earner, including national income tax (Box 1) and social security contributions."
   },
   "GB": {
     "effectiveRate": 0.285,
     "description": "Includes income tax and National Insurance contributions."
   },
   "CA": {
-    "effectiveRate": 0.31,
-    "description": "Includes federal and provincial income taxes, Canada Pension Plan (CPP) contributions, and Employment Insurance (EI) premiums for an $85k USD earner in Ontario."
+    "effectiveRate": 0.3,
+    "description": "Includes federal and provincial income taxes, along with mandatory payroll contributions like Canada Pension Plan (CPP) and Employment Insurance (EI). This rate is an estimate for an $85k USD earner in Ontario, which is roughly $115k CAD."
   },
   "AE": {
     "effectiveRate": 0,
-    "description": "No personal income tax is levied on individuals in the UAE."
+    "description": "The UAE has no personal income tax for individuals."
   },
   "NO": {
-    "effectiveRate": 0.335,
-    "description": "Includes state income tax, municipal income tax, and national insurance contributions."
+    "effectiveRate": 0.36,
+    "description": "Includes national income tax, municipal tax, county tax, and national insurance contributions."
   },
   "IE": {
-    "effectiveRate": 0.322,
-    "description": "Effective rate includes income tax, Universal Social Charge (USC), and Pay Related Social Insurance (PRSI) for a single earner."
+    "effectiveRate": 0.321,
+    "description": "Effective tax rate includes Irish Income Tax, Universal Social Charge (USC), and Pay Related Social Insurance (PRSI) for a single earner."
   },
   "LU": {
-    "effectiveRate": 0.32,
-    "description": "Includes progressive income tax and mandatory social security contributions for pension, health, and long-term care for an $85k USD earner."
+    "effectiveRate": 0.25,
+    "description": "Includes progressive income tax and mandatory social security contributions for a single earner."
   },
   "AU": {
     "effectiveRate": 0.273,
-    "description": "Includes federal income tax and Medicare levy, based on a $127,500 AUD equivalent income."
+    "description": "Effective tax rate includes federal income tax and Medicare levy, calculated for an $85k USD earner (approx. $127.5k AUD) in Australia."
   },
   "QA": {
     "effectiveRate": 0,
-    "description": "No personal income tax or social security contributions for expatriates."
+    "description": "No personal income tax for residents"
   },
   "BN": {
     "effectiveRate": 0,
-    "description": "Brunei has no personal income tax for individuals."
+    "description": "Brunei Darussalam has no personal income tax."
   },
   "MO": {
-    "effectiveRate": 0.086,
-    "description": "Macao's territorial tax system with progressive rates and generous exemptions, resulting in a low effective rate for an $85k USD earner."
+    "effectiveRate": 0.046,
+    "description": "Income tax, which features a generous tax-exempt threshold and progressive rates that cap at 12% for the highest brackets."
   }
 }

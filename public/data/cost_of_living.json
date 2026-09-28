@@ -1,62 +1,62 @@
 {
   "US": {
-    "index": 135,
-    "description": "Covers typical expenses for groceries, transportation, utilities, and miscellaneous personal spending."
+    "index": 145,
+    "description": "Covers groceries, utilities, transportation, and personal expenses for a single person."
   },
   "IN": {
-    "index": 55,
-    "description": "Covers groceries, transportation, utilities, and leisure activities, reflecting a generally affordable lifestyle."
+    "index": 65,
+    "description": "The cost of living excluding rent is relatively low, particularly for groceries, local transportation, and dining out. Imported goods and certain luxury services can be higher."
   },
   "SG": {
-    "index": 175,
-    "description": "High cost of living, with significant expenses for groceries, dining out, and transportation. Utilities are moderately priced."
+    "index": 162,
+    "description": "High cost for groceries, dining out, and private transport; public transport is efficient and more affordable, contributing to overall high living expenses."
   },
   "CH": {
-    "index": 200,
-    "description": "Cost of living is exceptionally high, particularly for groceries, transportation, and dining out."
+    "index": 245,
+    "description": "Cost of living is exceptionally high, particularly for groceries, dining, transportation, and utilities across all major cities."
   },
   "NL": {
-    "index": 115,
-    "description": "Covers groceries, transportation, utilities, and daily expenses."
+    "index": 125,
+    "description": "Covers groceries, transportation, utilities, and general expenses; generally high"
   },
   "GB": {
-    "index": 130,
-    "description": "Reflects costs for groceries, transportation, utilities, and general entertainment, averaged across the country."
+    "index": 125,
+    "description": "High for groceries, utilities, and transport, particularly in London, but generally above average across the country."
   },
   "CA": {
-    "index": 120,
-    "description": "Overall cost of living is moderate to high, with groceries, transportation, and utilities being significant expenses, particularly in major urban centers."
+    "index": 110,
+    "description": "Includes groceries, utilities, local transportation, internet, phone, and modest entertainment costs for a single person."
   },
   "AE": {
-    "index": 135,
-    "description": "Moderate to high cost for groceries, transportation, utilities, and leisure activities, varying by lifestyle, with Dubai being on the higher end."
+    "index": 160,
+    "description": "Cost of living excluding rent is high, driven by dining, entertainment, and certain imported goods, while utilities and transportation can be moderate."
   },
   "NO": {
-    "index": 190,
-    "description": "Very high cost of living for groceries, dining out, and transportation, making it one of the most expensive countries globally."
+    "index": 200,
+    "description": "High cost for groceries, public transport, and dining out."
   },
   "IE": {
-    "index": 125,
-    "description": "Cost of living is high, particularly for groceries, utilities, and transportation, especially in urban centers."
+    "index": 129,
+    "description": "High cost for groceries, utilities, transportation, and leisure activities, particularly in urban areas like Dublin."
   },
   "LU": {
-    "index": 140,
-    "description": "High cost of groceries, utilities, and services, though public transport is free."
+    "index": 198,
+    "description": "High cost of living for groceries, transportation, and dining, reflecting a generally expensive European capital."
   },
   "AU": {
-    "index": 117,
-    "description": "Covers average monthly expenses for groceries, transport, utilities, and personal care for a single person."
+    "index": 123,
+    "description": "High cost, reflecting expenses for groceries, transportation, utilities, and leisure for a single person."
   },
   "QA": {
-    "index": 85,
-    "description": "The cost of living excluding rent is moderate, benefiting from subsidized utilities. Groceries and dining out can range from moderate to high depending on choices."
+    "index": 162.8,
+    "description": "Cost of living is moderate, with groceries and transportation being relatively affordable, but dining out and certain leisure activities can be higher."
   },
   "BN": {
-    "index": 80,
-    "description": "Cost of living, excluding rent, is moderate. Groceries, utilities, and local transport are generally affordable."
+    "index": 87.5,
+    "description": "Relatively affordable daily expenses including groceries, local transportation, utilities, and modest leisure activities."
   },
   "MO": {
-    "index": 112.5,
-    "description": "Cost of living is high, especially for imported goods and dining, but public transport and some local amenities can be more affordable."
+    "index": 125,
+    "description": "Cost of living is high in Macao, particularly for groceries, dining out, and imported goods due to limited local production and high demand."
   }
 }

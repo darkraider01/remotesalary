@@ -1,77 +1,77 @@
 {
   "US": {
-    "capital": 420,
-    "tier1": 260,
-    "tier2": 160
+    "capital": 380,
+    "tier1": 300,
+    "tier2": 190
   },
   "IN": {
-    "capital": 150,
-    "tier1": 70,
-    "tier2": 35
+    "capital": 170,
+    "tier1": 110,
+    "tier2": 60
   },
   "SG": {
-    "capital": 350,
-    "tier1": 280,
-    "tier2": 200
+    "capital": 333,
+    "tier1": 259,
+    "tier2": 185
   },
   "CH": {
-    "capital": 250,
-    "tier1": 220,
-    "tier2": 180
+    "capital": 311.1,
+    "tier1": 255.5,
+    "tier2": 200
   },
   "NL": {
-    "capital": 180,
-    "tier1": 140,
-    "tier2": 100
-  },
-  "GB": {
-    "capital": 289.8,
-    "tier1": 151.2,
-    "tier2": 119.7
-  },
-  "CA": {
-    "capital": 170,
-    "tier1": 141,
-    "tier2": 111
-  },
-  "AE": {
-    "capital": 280,
-    "tier1": 210,
-    "tier2": 120
-  },
-  "NO": {
-    "capital": 160,
-    "tier1": 132,
-    "tier2": 113
-  },
-  "IE": {
-    "capital": 220,
-    "tier1": 150,
-    "tier2": 120
-  },
-  "LU": {
-    "capital": 220,
-    "tier1": 160,
+    "capital": 230,
+    "tier1": 165,
     "tier2": 130
   },
+  "GB": {
+    "capital": 250,
+    "tier1": 130,
+    "tier2": 100
+  },
+  "CA": {
+    "capital": 175,
+    "tier1": 140,
+    "tier2": 105
+  },
+  "AE": {
+    "capital": 220,
+    "tier1": 200,
+    "tier2": 95
+  },
+  "NO": {
+    "capital": 170,
+    "tier1": 135,
+    "tier2": 110
+  },
+  "IE": {
+    "capital": 215,
+    "tier1": 165,
+    "tier2": 130
+  },
+  "LU": {
+    "capital": 238,
+    "tier1": 173,
+    "tier2": 135
+  },
   "AU": {
-    "capital": 197,
-    "tier1": 150,
-    "tier2": 125
+    "capital": 200,
+    "tier1": 167,
+    "tier2": 120
   },
   "QA": {
-    "capital": 200,
-    "tier1": 170,
-    "tier2": 120
+    "capital": 220,
+    "tier1": 190,
+    "tier2": 140
   },
   "BN": {
-    "capital": 80,
-    "tier1": 65,
-    "tier2": 50
+    "capital": 48,
+    "tier1": 40,
+    "tier2": 30
   },
   "MO": {
-    "capital": 220,
-    "tier1": 160,
-    "tier2": 120
+    "capital": 160,
+    "tier1": 130,
+    "tier2": 100
   }
 }

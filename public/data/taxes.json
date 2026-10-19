@@ -1,62 +1,62 @@
 {
   "US": {
-    "effectiveRate": 0.288,
-    "description": "Includes federal income tax, FICA (Social Security & Medicare), and an estimated average for state and local income taxes."
+    "effectiveRate": 0.25,
+    "description": "Includes federal income tax, FICA (Social Security and Medicare), and an estimated average state income tax for an $85k USD earner."
   },
   "IN": {
-    "effectiveRate": 0.268,
-    "description": "Effective income tax including a 4% health and education cess, calculated for an individual under the new tax regime."
+    "effectiveRate": 0.27,
+    "description": "Progressive income tax, including a 4% health and education cess."
   },
   "SG": {
-    "effectiveRate": 0.064,
-    "description": "Effective personal income tax rate for a resident on an $85k USD equivalent income, not including any social security contributions which are employer-borne."
+    "effectiveRate": 0.0641,
+    "description": "Effective income tax rate for an S$115,000 (approx. $85k USD) earner, based on Singapore's progressive tax system. This excludes mandatory Central Provident Fund (CPF) contributions and there is no capital gains tax."
   },
   "CH": {
-    "effectiveRate": 0.19,
-    "description": "Includes federal, cantonal, and municipal income taxes, plus social security contributions; highly variable by canton and municipality."
+    "effectiveRate": 0.28,
+    "description": "Effective rate for federal, cantonal, and municipal income taxes, plus mandatory social security contributions in Zurich."
   },
   "NL": {
-    "effectiveRate": 0.33,
-    "description": "Effective rate includes income tax and national insurance premiums after standard credits."
+    "effectiveRate": 0.32,
+    "description": "Effective rate includes national income tax (Box 1) and social security contributions."
   },
   "GB": {
-    "effectiveRate": 0.265,
-    "description": "Effective rate includes Income Tax and National Insurance Contributions for an $85k USD earner."
+    "effectiveRate": 0.26,
+    "description": "Includes Income Tax and National Insurance contributions."
   },
   "CA": {
-    "effectiveRate": 0.305,
-    "description": "Effective tax rate includes federal and provincial income taxes, along with mandatory social contributions (CPP/EI)."
+    "effectiveRate": 0.31,
+    "description": "Includes federal income tax, provincial income tax (Ontario assumed), Canada Pension Plan (CPP), and Employment Insurance (EI) contributions."
   },
   "AE": {
     "effectiveRate": 0,
-    "description": "No personal income tax for individuals in the UAE."
+    "description": "No personal income tax for individuals, only indirect taxes like VAT"
   },
   "NO": {
-    "effectiveRate": 0.28,
-    "description": "Effective rate includes state income tax, municipal income tax, and national insurance contributions."
+    "effectiveRate": 0.4,
+    "description": "Includes national income tax (trinnskatt), municipal tax, and social security contributions, calculated for an approximate 910,000 NOK annual income."
   },
   "IE": {
     "effectiveRate": 0.325,
-    "description": "Includes national income tax, Universal Social Charge (USC), and Pay Related Social Insurance (PRSI)."
+    "description": "Effective tax rate includes income tax, Universal Social Charge (USC), and Pay Related Social Insurance (PRSI) for an employed individual, considering tax credits and progressive bands."
   },
   "LU": {
-    "effectiveRate": 0.235,
-    "description": "Includes progressive income tax, social security contributions, and health insurance."
+    "effectiveRate": 0.29,
+    "description": "Includes national income tax and mandatory social security contributions (pension, health, long-term care) for a single earner."
   },
   "AU": {
-    "effectiveRate": 0.273,
-    "description": "Includes federal income tax and Medicare levy for an $85k USD earner (approx $127,500 AUD)."
+    "effectiveRate": 0.2702,
+    "description": "Includes federal income tax and Medicare levy"
   },
   "QA": {
     "effectiveRate": 0,
-    "description": "No personal income tax for residents on salaries and wages."
+    "description": "Qatar does not impose personal income tax on salaries and wages for residents."
   },
   "BN": {
     "effectiveRate": 0,
-    "description": "Brunei Darussalam currently has no personal income tax for residents. Social security contributions are also minimal."
+    "description": "Brunei Darussalam has no personal income tax for its citizens or residents, resulting in an effective tax rate of 0% for an $85k USD earner."
   },
   "MO": {
-    "effectiveRate": 0.035,
-    "description": "Effective Professional Tax rate for an $85k USD earner, including progressive rates and exemptions specific to Macao SAR."
+    "effectiveRate": 0.042,
+    "description": "Effective personal income tax rate includes progressive taxation with a substantial tax-free threshold and a 30% tax reduction, capped at MOP 14,000 annually."
   }
 }
